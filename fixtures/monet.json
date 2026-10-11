@@ -1,0 +1,40 @@
+{
+  "data": {
+    "id": 16568,
+    "title": "Water Lilies",
+    "thumbnail": {
+      "lqip": "data:image/gif;base64,R0lGODlhBQAFAPQAAEZcaFFfdVtqbk9ldFBlcVFocllrcFlrd11rdl9sdFZtf15wcWV0d2R2eGByfmd6eGl6e2t9elZxiGF4kWB4kmJ9kGJ8lWeCkWSAnQAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAAAAAAALAAAAAAFAAUAAAUVoJBADXI4TLRMWHU9hmRRCjAURBACADs=",
+      "width": 8808,
+      "height": 8460,
+      "alt_text": "Painting of a pond seen up close spotted with thickly painted pink and white water lilies and a shadow across the top third of the picture."
+    },
+    "main_reference_number": "1933.1157",
+    "date_display": "1906",
+    "artist_display": "Claude Monet (French, 1840–1926)",
+    "dimensions": "89.9 × 94.1 cm (35 3/8 × 37 1/16 in.); Framed: 103.2 × 107 × 5.8 cm (40 5/8 × 42 1/8 × 2 1/4 in.)",
+    "medium_display": "Oil on canvas",
+    "credit_line": "Mr. and Mrs. Martin A. Ryerson Collection",
+    "provenance_text": "The artist (d. 1926); sold to Durand-Ruel, Paris (3/4 interest), and Bernheim-Jeune, Paris (1/4 interest), June 3, 1909, for 14,000 francs [this and the following per Durand-Ruel, Paris, stock book for 1901–13 (no. 9082, as Les nymphéas, paysage d’eau, série de 1906), as confirmed by Paul-Louis Durand-Ruel and Flavie Durand-Ruel, Durand-Ruel Archives, to the Art Institute of Chicago, Feb. 21, 2013, curatorial object file]; sold to Henri Bernstein, Paris, May 29, 1909, for 20,000 francs [see previous: the Durand-Ruel Archives notes that “the apparent chronological anomaly between the dates of the purchase and of the sale is not unusual”]; sold to Durand-Ruel, Paris, Aug. 9, 1909, for 20,000 francs [per Durand-Ruel, Paris, stock book for 1901–13 (no. 9134, as Les nymphéas, paysage d’eau, série de 1906), as confirmed by Paul-Louis Durand-Ruel and Flavie Durand-Ruel, Durand-Ruel Archives, to the Art Institute of Chicago, Feb. 21, 2013, curatorial object file]; on deposit to Durand-Ruel, New York, Apr. 1911 [per Durand-Ruel, New York, deposit book for 1894–1925 (no. 7606, as Les nymphéas, paysage d’eau, série de 1906), as confirmed by Paul-Louis Durand-Ruel and Flavie Durand-Ruel, Durand-Ruel Archives, to the Art Institute of Chicago, Feb. 21, 2013, curatorial object file]; sold to Durand-Ruel, New York, Feb. 10, 1914 [this and the following per Durand-Ruel, New York, stock book for 1904–24 (no. 3768, as Les nymphéas, paysage d’eau, série de 1906), as confirmed by Paul-Louis Durand-Ruel and Flavie Durand-Ruel, Durand-Ruel Archives, to the Art Institute of Chicago, Feb. 21, 2013, curatorial object file]; sold to Martin A. Sold by Durand-Ruel, New York, to Martin A. Ryerson (d. 1932), Chicago, Feb. 10, 1914, for $5,000 [see previous; also a purchase receipt on Durand-Ruel letterhead, dated February 10, 1914, details that this painting (no. 3768, Monet, Les nymphéas, paysage d’eau, 1906) was acquired by M. A. Ryerson, in addition to two other paintings (no. 3668, Monet, La cabane de douaniers, 1897 (cat. 35); and no. 3646, Monet, Waterloo Bridge, London,1903) (cat. 39) for $20,000, photocopy in curatorial object file]; bequeathed to the Art Institute of Chicago, 1933.",
+    "is_public_domain": true,
+    "artist_title": "Claude Monet",
+    "image_id": "3c27b499-af56-f0d5-93b5-a7f2f1ad5813"
+  },
+  "info": {
+    "license_text": "The `description` field in this response is licensed under a Creative Commons Attribution 4.0 Generic License (CC-By) and the Terms and Conditions of artic.edu. All other data in this response is licensed under a Creative Commons Zero (CC0) 1.0 designation and the Terms and Conditions of artic.edu.",
+    "license_links": [
+      "https://creativecommons.org/publicdomain/zero/1.0/",
+      "https://www.artic.edu/terms"
+    ],
+    "version": "1.16"
+  },
+  "config": {
+    "iiif_url": "https://www.artic.edu/iiif/2",
+    "website_url": "http://www.artic.edu"
+  },
+  "retrievedAt": "2026-10-11T00:39:44.324Z",
+  "mirror": {
+    "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/65/Claude_Monet_-_Water_Lilies_-_1933.1157_-_Art_Institute_of_Chicago.jpg/1280px-Claude_Monet_-_Water_Lilies_-_1933.1157_-_Art_Institute_of_Chicago.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "source": "https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lilies_-_1933.1157_-_Art_Institute_of_Chicago.jpg",
+    "license": "Public domain"
+  }
+}

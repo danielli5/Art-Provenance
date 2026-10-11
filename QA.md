@@ -1,5 +1,15 @@
 # Test inventory
 
+## Integrated historical context revision
+
+- No standalone Beyond the catalog panel.
+- Forced-sale allegation contextualizes the matching 1935 auction entry without being dated as a contemporaneous 1935 claim.
+- May 14, 2001 settlement follows the 1967 museum acquisition as a separate chronological event.
+- Source disclosures identify the 2006 testimony, prepared-summary status, and allegation-versus-finding distinction.
+- Museum excerpt and historical-context evidence remain separate within each entry.
+- Other artworks retain their museum provenance without Courbet-specific context.
+- Verified Courbet desktop and 375 px mobile layouts, including light/dark themes and expanded contextual evidence. No horizontal overflow or uncaught page errors in the tested Courbet flow.
+
 ## Four-museum expansion
 
 - Live Monet query: Chicago 1, Met 3, Cleveland 1, Rijksmuseum 0 close matches in the tested responses. Coverage is not an exhaustive collection count.

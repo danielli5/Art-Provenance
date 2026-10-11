@@ -1,5 +1,18 @@
 # Test inventory
 
+## Evidence-panel revision checklist
+
+- Every provenance row opens an inline readable passage rather than navigating to JSON.
+- The overview provides the complete museum passage in the same component.
+- Museum page link uses the selected artwork's public URL.
+- Raw JSON is labeled and hidden under Technical details by default.
+- Text preserves source qualifications; source date and single-source limitation are visible.
+- Native disclosure keyboard toggle, close/reopen, light/dark and 375 px layouts.
+- Regression object: Gustave Caillebotte, Paris Street; Rainy Day, collection ID 20684.
+- Record summary and provenance are on one continuous page; no research tabs or Questions to ask section.
+
+Revision verified: TypeScript and production build pass. Live Caillebotte record 20684 opens readable passages with the correct public museum URL; raw JSON stays hidden until Technical details is expanded. Keyboard closing works. The final combined page renders the record and history together with no tabs or Questions section. Desktop, 375 px mobile, and dark evidence panels inspected; no horizontal overflow or uncaught page errors found.
+
 - Entry: two required fields, field errors, real catalog search, loading and service-failure states.
 - Discovery: Monet and a second artist, no-match result, image/source/rights attribution, alternatives, confirmation.
 - Dossier: record, provenance, questions, source links, JSON export, return navigation.

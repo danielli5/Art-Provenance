@@ -84,6 +84,8 @@ Source Sans 3 and Source Serif 4 are served by Google Fonts. No ownership of mus
 
 Source repository: https://github.com/danielli5/Art-Provenance (private). The webpage's display name remains Provenance. A self-contained reproduction brief is included at `docs/cowork-build-brief.md`; use the brief alone for an independent build comparison, or supply this source code for exact reproduction.
 
+Use [the Computer vs. Cowork scorecard](docs/computer-vs-cowork-scorecard.md) to evaluate both builds with 24 checks, a 100-point quality rubric, trust gates, and separate effort metrics. Results remain unmeasured until controlled testing; do not compare the refined reference implementation with a fresh first attempt as if the conditions were identical.
+
 Do not commit private auction records, private photos, keys, `.env`, dependencies, or build outputs. No additional code license grant has been selected for publication; retain existing third-party notices and review the template's package metadata before any public release.
 
 This frontend requires its Node backend for search and downloads; GitHub Pages alone does not run it. Review dependencies and add production monitoring before public hosting.

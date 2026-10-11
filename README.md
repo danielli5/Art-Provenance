@@ -1,4 +1,4 @@
-# Provenance
+# Art Provenance
 
 A fine-art museum placard-inspired artwork discovery prototype, built with Perplexity Computer. Enter an artist and title, review automatically retrieved images and records, confirm the work, and inspect its published provenance.
 
@@ -21,7 +21,7 @@ The Met search uses its current `/public/collection/v1.1/search` endpoint. Some 
 
 ## Local setup
 
-Node 20 or later.
+Node 22 LTS or a compatible newer release.
 
 ```sh
 npm ci
@@ -82,6 +82,8 @@ Source Sans 3 and Source Serif 4 are served by Google Fonts. No ownership of mus
 
 ## GitHub / deployment
 
-The project is initialized as a local Git repository. No GitHub repository has been created or pushed. Confirm repository owner, name, visibility, and code license before publishing. Do not commit private auction records, private photos, keys, `.env`, dependencies, or build outputs.
+Source repository: https://github.com/danielli5/Art-Provenance (private). The webpage's display name remains Provenance. A self-contained reproduction brief is included at `docs/cowork-build-brief.md`; use the brief alone for an independent build comparison, or supply this source code for exact reproduction.
+
+Do not commit private auction records, private photos, keys, `.env`, dependencies, or build outputs. No additional code license grant has been selected for publication; retain existing third-party notices and review the template's package metadata before any public release.
 
 This frontend requires its Node backend for search and downloads; GitHub Pages alone does not run it. Review dependencies and add production monitoring before public hosting.

@@ -3,6 +3,7 @@ import type { Server } from "node:http";
 import { readFile } from "node:fs/promises";
 import { searchSchema, type Artwork } from "../shared/artwork";
 import { curatedImages } from "../shared/curated-images";
+import { museumNames,searchMet,searchCleveland,searchRijks,metObject,clevelandObject,rijksObject,matchScore } from "./museums";
 
 const API="https://api.artic.edu/api/v1";
 const fields="id,title,artist_title,artist_display,date_display,medium_display,dimensions,credit_line,main_reference_number,image_id,is_public_domain,provenance_text,thumbnail";
@@ -11,7 +12,7 @@ const norm=(v:string)=>v.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLower
 function normalize(d:any,iiif:string,mode:"live"|"saved",at:string):Artwork {
   const imageAllowed=d.is_public_domain===true&&/^[\da-f-]+$/i.test(d.image_id||"");
   const safeBase=iiif.startsWith("https://www.artic.edu/iiif/")?iiif:"https://www.artic.edu/iiif/2";
-  return {id:d.id,title:clean(d.title),artist:clean(d.artist_title)||clean(d.artist_display),artistDisplay:clean(d.artist_display),date:clean(d.date_display),medium:clean(d.medium_display),dimensions:clean(d.dimensions),credit:clean(d.credit_line),reference:clean(d.main_reference_number),image:imageAllowed?`${safeBase}/${d.image_id}/full/843,/0/default.jpg`:null,alt:clean(d.thumbnail?.alt_text),source:`https://www.artic.edu/artworks/${d.id}`,apiSource:`${API}/artworks/${d.id}`,provenance:clean(d.provenance_text),publicDomain:d.is_public_domain===true,mode,accessedAt:at};
+  return {provider:"aic",museum:museumNames.aic,id:d.id,title:clean(d.title),artist:clean(d.artist_title)||clean(d.artist_display),artistDisplay:clean(d.artist_display),date:clean(d.date_display),medium:clean(d.medium_display),dimensions:clean(d.dimensions),credit:clean(d.credit_line),reference:clean(d.main_reference_number),image:imageAllowed?`${safeBase}/${d.image_id}/full/843,/0/default.jpg`:null,alt:clean(d.thumbnail?.alt_text),source:`https://www.artic.edu/artworks/${d.id}`,apiSource:`${API}/artworks/${d.id}`,provenance:clean(d.provenance_text),provenanceField:"provenance_text",publicDomain:d.is_public_domain===true,mode,accessedAt:at};
 }
 async function getJson(url:string) {
   const response=await fetch(url,{signal:AbortSignal.timeout(14000),headers:{"Accept":"application/json","User-Agent":"ProvenanceResearchPreview/0.1"}});
@@ -52,8 +53,8 @@ export async function registerRoutes(httpServer:Server,app:Express):Promise<Serv
   app.post("/api/search",async(req,res)=>{
     const parsed=searchSchema.safeParse(req.body);
     if(!parsed.success){res.status(400).json({message:"Enter both artist and artwork title."});return;}
-    try{
-      const {artist,title}=parsed.data;
+    async function searchAic(){
+      const {artist,title}=parsed.data!;
       const params=new URLSearchParams({q:`${artist} ${title}`,limit:"30",fields});
       const response=await lookup(`${API}/artworks/search?${params}`);
       const artistTerms=norm(artist).split(" ").filter(Boolean);
@@ -68,20 +69,36 @@ export async function registerRoutes(httpServer:Server,app:Express):Promise<Serv
         return {art:{...art,match:exact?"Artist and title match":"Artist match; related title. Please verify."},score:(exact?100:50)+(art.image?10:0)};
       }).sort((a:any,b:any)=>b.score-a.score).slice(0,3);
       const artworks=await Promise.all(scored.map((x:any)=>resolveImage(x.art)));
-      res.json({artworks,coverage:"Art Institute of Chicago; identity-checked Wikimedia image mirrors where available",checkedAt:at});
-    }catch{res.status(422).json({message:"The museum service is unavailable. Try again or use the saved example."});}
+      return artworks;
+    }
+    const input=parsed.data;
+    const tasks=[["aic",searchAic],["met",()=>searchMet(input)],["cleveland",()=>searchCleveland(input)],["rijks",()=>searchRijks(input)]] as const;
+    const rows=await Promise.allSettled(tasks.map(async([provider,run])=>{
+      let timer:ReturnType<typeof setTimeout>;
+      try{const artworks=await Promise.race([run(),new Promise<Artwork[]>((_,reject)=>{timer=setTimeout(()=>reject(new Error("Catalog timeout")),26000)})]);return {provider,artworks};}
+      finally{clearTimeout(timer!);}
+    }));
+    const providers=rows.map((r,i)=>({provider:tasks[i][0],museum:museumNames[tasks[i][0]],status:r.status==="fulfilled"?"ok":"unavailable",matches:r.status==="fulfilled"?r.value.artworks.length:0}));
+    const artworks=rows.flatMap(r=>r.status==="fulfilled"?r.value.artworks:[]).sort((a,b)=>matchScore(b,input)-matchScore(a,input));
+    if(rows.every(r=>r.status==="rejected")){res.status(422).json({message:"Museum services are unavailable. Try again or use the saved example."});return;}
+    res.json({artworks,providers,checkedAt:new Date().toISOString(),coverage:"Four public museum catalogs; no live Perplexity API research"});
   });
   app.get("/api/example",async(_req,res)=>{
     const record=JSON.parse(await readFile("fixtures/monet.json","utf8"));
     res.json({...normalize(record.data,record.config.iiif_url,"saved",record.retrievedAt),image:record.mirror.url,imageSource:record.mirror.source});
   });
-  app.get("/api/export/:id",async(req,res)=>{
+  app.get("/api/export/:provider/:id",async(req,res)=>{
     const id=String(req.params.id);if(!/^\d{1,9}$/.test(id)){res.status(400).json({message:"Invalid object identifier"});return;}
     try{
       let record,art;
-      if(req.query.mode==="saved"&&id==="16568"){record=JSON.parse(await readFile("fixtures/monet.json","utf8"));art=normalize(record.data,record.config.iiif_url,"saved",record.retrievedAt);}
-      else{record=await lookup(`${API}/artworks/${id}?fields=${fields}`);art=normalize(record.data,record.config.iiif_url,"live",new Date().toISOString());}
-      res.setHeader("Content-Disposition",`attachment; filename="provenance-${id}.json"`);
+      const provider=req.params.provider;
+      if(provider==="aic"&&req.query.mode==="saved"&&id==="16568"){record=JSON.parse(await readFile("fixtures/monet.json","utf8"));art=normalize(record.data,record.config.iiif_url,"saved",record.retrievedAt);}
+      else if(provider==="aic"){record=await lookup(`${API}/artworks/${id}?fields=${fields}`);art=normalize(record.data,record.config.iiif_url,"live",new Date().toISOString());}
+      else if(provider==="met")art=await metObject(Number(id));
+      else if(provider==="cleveland")art=await clevelandObject(Number(id));
+      else if(provider==="rijks")art=await rijksObject(Number(id));
+      else{res.status(400).json({message:"Unknown collection"});return;}
+      res.setHeader("Content-Disposition",`attachment; filename="provenance-${provider}-${id}.json"`);
       res.type("application/json").send(JSON.stringify({schemaVersion:1,coverage:"Single-source museum record, not independent provenance research",artwork:art},null,2));
     }catch{res.status(422).json({message:"Could not export this record. Please try again."});}
   });

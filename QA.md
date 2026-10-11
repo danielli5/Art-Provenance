@@ -1,5 +1,18 @@
 # Test inventory
 
+## Four-museum expansion
+
+- Live Monet query: Chicago 1, Met 3, Cleveland 1, Rijksmuseum 0 close matches in the tested responses. Coverage is not an exhaustive collection count.
+- All four adapters returned successful responses in the tested queries.
+- Rembrandt / The Night Watch: Rijksmuseum object 200107928, permitted 1000 px image displayed and source-linked provenance returned.
+- Cleveland Monet object 136510: permitted 900 px image displayed, Cleveland attribution, original provenance description excerpt preserved.
+- Met Monet object 437137: correct Met attribution and explicit missing-provenance state; no image is reproduced when the API does not clear it.
+- Courbet / The Rock of Hautepierre: Chicago object 27027, verified 1280 px cached image, readable evidence and separately labeled prepared contextual research.
+- Provider-prefixed identifiers and export names avoid collisions across museums.
+- Rijksmuseum export downloaded as provenance-rijks-200107928.json.
+- Live Perplexity web research is NOT connected. Public museum APIs plus prepared research are labeled distinctly.
+- Final desktop Courbet dossier and mobile four-source results inspected. Both mobile results and Cleveland dossier had no horizontal overflow; no uncaught page errors were observed.
+
 ## Evidence-panel revision checklist
 
 - Every provenance row opens an inline readable passage rather than navigating to JSON.

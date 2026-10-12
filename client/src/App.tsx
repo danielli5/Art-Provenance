@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { QueryClientProvider, useMutation } from "@tanstack/react-query";
 import { queryClient, apiRequest } from "./lib/queryClient";
 import { useForm } from "react-hook-form";
@@ -8,6 +8,7 @@ import { ArrowUpRight, ArrowRight, ArrowLeft, Sun, Moon, Plus, Minus, X, Upload,
 import { searchSchema, type Artwork, type SearchInput, type SearchResponse, type ProviderStatus } from "../../shared/artwork";
 import { curatedImages } from "../../shared/curated-images";
 import { ResearchRoom } from "./ResearchRoom";
+import type { Narrative } from "../../shared/research";
 
 const catalogUrl = "https://www.artic.edu/artworks/16568/water-lilies";
 const apiBase = "__PORT_5000__".startsWith("__") ? "" : "__PORT_5000__";
@@ -24,44 +25,31 @@ function ArtImage({art,large=false}:{art:Artwork;large?:boolean}) {
   useEffect(()=>setFailed(false),[art.provider,art.id,art.image]);
   return art.image&&!failed ? <img data-testid={`img-art-${art.provider}-${art.id}`} className={large?"main-art":"candidate-art"} src={cachedImage(art)?.path||art.image} onError={()=>setFailed(true)} alt={art.alt||`${art.title} by ${art.artist}`} decoding="async"/> : <div className="image-fallback" role="img" aria-label="Artwork image unavailable"><span>Image unavailable for display</span><small>It may be restricted or temporarily unreachable. The collection record is still available.</small></div>;
 }
-function EvidencePanel({art,passage,id}:{art:Artwork;passage?:string;id:string}) {
+function EvidencePanel({art,passage,id,label="Museum's wording"}:{art:Artwork;passage?:string;id:string;label?:string}) {
   const excerpt=passage??art.provenance;
   return <details className="evidence-disclosure" data-testid={`panel-${id}`}>
-    <summary data-testid={`show-${id}`}>Show evidence <Plus size={14} className="evidence-plus"/><Minus size={14} className="evidence-minus"/></summary>
+    <summary data-testid={`show-${id}`}>{label} <Plus size={14} className="evidence-plus"/><Minus size={14} className="evidence-minus"/></summary>
     <section className="evidence-card" aria-label={`Museum evidence for ${art.title}`}>
-      <div className="evidence-card-heading"><span className="eyebrow">THE MUSEUM'S ACCOUNT</span><span className="evidence-status">Single-source statement</span></div>
-      <h3>{art.title}</h3>
-      <p className="evidence-object">{art.artist} · {art.date} · Object {art.reference}</p>
-      {excerpt?<><p className="evidence-label">Exact passage from the published provenance</p><blockquote data-testid={`quote-${id}`}>{excerpt}</blockquote></>:<p className="evidence-empty">No provenance passage was supplied in this record. The museum's object metadata is available on its public collection page.</p>}
-      <div className="evidence-attribution"><span>{art.museum}</span><span>{art.mode==="saved"?"Saved record retrieved":"Record retrieved"} {new Date(art.accessedAt).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</span></div>
-      <p className="evidence-limit">This is the museum's published statement, not an original ownership document or an independently verified transfer. Any archives cited in the passage have not been inspected here.</p>
+      {excerpt?<blockquote data-testid={`quote-${id}`}>{excerpt}</blockquote>:<p className="evidence-empty">No provenance passage in this record.</p>}
+      <div className="evidence-attribution"><span>{art.museum}</span><span>Retrieved {new Date(art.accessedAt).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}</span></div>
       <OutLink href={art.source} id={`museum-${id}`}>View museum record</OutLink>
-      <details className="technical-evidence"><summary data-testid={`technical-${id}`}>Technical details</summary><p>Source field: {art.provenanceField||"museum provenance record"}. This link opens structured data intended for software, not a reader-friendly page.</p><OutLink href={art.apiSource} id={`raw-${id}`}>View raw data (JSON)</OutLink></details>
+      <details className="technical-evidence"><summary data-testid={`technical-${id}`}>Technical details</summary><p>Source field: {art.provenanceField||"museum provenance record"}.</p><OutLink href={art.apiSource} id={`raw-${id}`}>View raw data (JSON)</OutLink></details>
     </section>
   </details>;
 }
+const testimony="https://financialservices.house.gov/media/pdf/072706jc.pdf";
 function HistoricalContext({kind}:{kind:"claim"|"settlement"}) {
   const claim=kind==="claim";
-  return <div className="history-context" data-testid={`history-context-${kind}`}>
-    <p className="history-context-label">{claim?"Later claim about the 1935 sale":"May 14, 2001 · Ownership settlement"}</p>
-    <p>{claim
-      ?"Gerta Silberberg later alleged that this sale had been forced. James Cuno's 2006 congressional testimony describes her claim concerning her father-in-law Max Silberberg's collection. The testimony reports an allegation, not a court finding that the sale was forced."
-      :"Gerta Silberberg and the Art Institute reached an undisclosed settlement under which the museum retained title to and possession of the painting. James Cuno's 2006 congressional testimony records the settlement and states that a new label would acknowledge Max Silberberg's prior ownership."}</p>
-    <details className="evidence-disclosure">
-      <summary data-testid={`show-context-${kind}`}>Show evidence <Plus size={14} className="evidence-plus"/><Minus size={14} className="evidence-minus"/></summary>
-      <section className="evidence-card" aria-label="Historical research evidence">
-        <div className="evidence-card-heading"><span className="eyebrow">CONGRESSIONAL TESTIMONY</span><span className="evidence-status">Prepared research summary</span></div>
-        <h3>{claim?"The circumstances of the sale":"The later ownership resolution"}</h3>
-        <p className="evidence-object">James Cuno, then President and Director of the Art Institute of Chicago · July 27, 2006</p>
-        <p className="history-source-summary">{claim
-          ?"Appendix A identifies the March 23, 1935 sale at Galerie Paul Graupe and describes Gerta Silberberg's allegation that the painting was included in a forced sale. This is a summary of the testimony, not an original sale document or a judicial finding."
-          :"Appendix A lists the settlement date as May 14, 2001 and says the museum retained title and possession. The main testimony also describes recognition of Max Silberberg's prior ownership on a new label. The settlement terms were undisclosed."}</p>
-        <OutLink href="https://financialservices.house.gov/media/pdf/072706jc.pdf" id={`source-context-${kind}`}>Read the testimony and Appendix A (PDF)</OutLink>
-        <p className="evidence-limit">Prepared with Perplexity Computer. This historical context comes from the cited testimony, not the museum catalog API, and was not generated by a live search in this session.</p>
-      </section>
-    </details>
-    <small className="history-context-credit">Cited historical context · Prepared research, not museum catalog text</small>
-  </div>;
+  return <article className="timeline-entry outside-source" data-testid={claim?"history-context-claim":"settlement-timeline-entry"}>
+    <span className="timeline-period">{claim?"Later claim":"May 14, 2001"}</span>
+    <div>
+      <p className="timeline-owner">{claim?"Gerta Silberberg, Max Silberberg's heir":"Settlement with the Silberberg heir"}</p>
+      <p className="timeline-text">{claim
+        ?"She alleged the 1935 sale was a forced sale under Nazi persecution. This is an allegation; no court ruled on it."
+        :"The Art Institute and Gerta Silberberg reached an undisclosed settlement. The museum kept the painting and added a label recognizing Max Silberberg's ownership."}</p>
+      <p className="timeline-basis">Not in the museum catalog · <a href={testimony} target="_blank" rel="noopener noreferrer" data-testid={`source-context-${kind}`}>James Cuno, congressional testimony, 2006</a></p>
+    </div>
+  </article>;
 }
 function ProvenanceApp() {
   const [theme,setTheme]=useState(()=>matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
@@ -113,85 +101,81 @@ function ProvenanceApp() {
   const sections=selected?.provenanceParts??selected?.provenance.split(/;\s*(?![^[]*\])/).filter(Boolean)??[];
   const sectionSuffix=(index:number)=>selected?.provenanceParts?"":index<sections.length-1?";":"";
   const hasHistoricalContext=selected?.provider==="aic"&&selected.id===27027;
+  const [narrative,setNarrative]=useState<Narrative|null>(null);
+  const [narrating,setNarrating]=useState(false);
+  const partsKey=sections.map(x=>x.trim()).join("|");
+  useEffect(()=>{
+    setNarrative(null);
+    if(!selected||!sections.length)return;
+    let live=true;setNarrating(true);
+    apiRequest("POST","/api/narrative",{provider:selected.provider,objectId:selected.id,parts:sections.map(x=>x.trim())})
+      .then(r=>r.json()).then(n=>{if(live)setNarrative(n);}).catch(()=>{}).finally(()=>{if(live)setNarrating(false);});
+    return()=>{live=false;};
+  },[selected?.provider,selected?.id,partsKey]);
   return <div className={presentation?"app presentation":"app"}>
     <a className="skip-link" href="#main">Skip to content</a>
     <header className="site-header">
       <button data-testid="button-home" className="logo-button" onClick={reset} aria-label="Provenance home"><Logo/></button>
-      <nav aria-label="Main navigation">
-        <button data-testid="button-research" className={stage==="entry"?"nav-active":""} onClick={reset}>The research room</button>
-        <button data-testid="button-method" onClick={()=>setPanel("method")}>Our approach</button>
-        <button data-testid="button-enterprise" onClick={()=>setPanel("enterprise")}>Beyond the canvas <ArrowUpRight size={13}/></button>
-      </nav>
       <button data-testid="button-theme" className="icon-button" aria-label={`Switch to ${theme==="light"?"dark":"light"} mode`} onClick={()=>setTheme(theme==="light"?"dark":"light")}>{theme==="light"?<Moon size={17}/>:<Sun size={17}/>}</button>
     </header>
     <main id="main">
       {stage==="entry"&&<>
         <section className="entry-grid">
           <div className="introduction">
-            <div className="eyebrow"><span className="tiny-rule"/> A WORK. A RECORD. A HISTORY.</div>
-            <h1>Every work<br/>has a history.</h1>
-            <p className="intro-copy">Begin with the artist and the artwork.<br/>Discover the image, then look beyond it.</p>
+                        <h1>Every work<br/>has a history.</h1>
+            <p className="intro-copy">Search four museum collections, then test the record against the open web.</p>
             <Form {...form}><form onSubmit={form.handleSubmit(v=>{setNotice("");search.mutate(v);})} className="search-form" noValidate>
               <FormField control={form.control} name="artist" render={({field})=><FormItem className="field"><FormLabel>Artist</FormLabel><FormControl><input {...field} data-testid="input-artist" placeholder="e.g. Claude Monet" autoComplete="off" disabled={busy}/></FormControl><FormMessage/></FormItem>}/>
               <FormField control={form.control} name="title" render={({field})=><FormItem className="field"><FormLabel>Artwork title</FormLabel><FormControl><input {...field} data-testid="input-title" placeholder="e.g. Water Lilies" autoComplete="off" disabled={busy}/></FormControl><FormMessage/></FormItem>}/>
               <button data-testid="button-find" className="primary" type="submit" disabled={busy}>{busy?"Looking through the collection…":"Find the artwork"}{busy?<span className="spinner"/>:<ArrowRight size={18}/>}</button>
-              <p className="search-scope"><span className="status-dot"/>Cross-museum discovery · 4 public collections</p>
-              <p className="collection-names">The Met · Rijksmuseum · Chicago · Cleveland</p>
+              <p className="collection-names">The Met · Rijksmuseum · Art Institute of Chicago · Cleveland</p>
             </form></Form>
             {notice&&<p role="alert" className="inline-error">{notice}</p>}
             <div className="try-links"><span>Try a work</span><button data-testid="example-monet" disabled={busy} onClick={()=>runExample("Claude Monet","Water Lilies")}>Monet</button><span>/</span><button data-testid="example-courbet" disabled={busy} onClick={()=>runExample("Gustave Courbet","The Rock of Hautepierre")}>Courbet</button><span>/</span><button data-testid="example-rembrandt" disabled={busy} onClick={()=>runExample("Rembrandt","The Night Watch")}>Rembrandt</button></div>
-            <div className="fallback-area"><button data-testid="button-fallback" className="text-button" aria-expanded={fallback} onClick={()=>setFallback(!fallback)}>Can't find your artwork?{fallback?<Minus size={14}/>:<Plus size={14}/>}</button>
-              {fallback&&<div className="upload-panel"><p>Add a reference photo for your own comparison. It stays in this browser; image identification is not enabled in this test.</p><input ref={fileRef} data-testid="input-image" type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>chooseFile(e.target.files?.[0])} aria-label="Upload artwork reference"/><button data-testid="button-upload" className="secondary" onClick={()=>fileRef.current?.click()}><Upload size={15}/>Choose an image</button><small>JPEG, PNG or WebP · Up to 10 MB</small>{uploadError&&<p role="alert" className="inline-error">{uploadError}</p>}{upload&&<div className="upload-preview"><img src={upload} alt="Your local artwork reference"/><button data-testid="button-remove-image" onClick={()=>{setUpload(null);if(fileRef.current)fileRef.current.value="";}}>Remove image <X size={12}/></button></div>}</div>}
-            </div>
           </div>
           <figure className="featured">
-            <div className="featured-label"><span>FROM THE COLLECTION</span><span>01 / STUDY IN WATER</span></div>
-            <div className="featured-image"><img data-testid="img-featured" src="./images/water-lilies.jpg" alt="Claude Monet’s Water Lilies, 1906: pale pink blooms across blue-green pond reflections" width="843" height="810"/></div>
+                        <div className="featured-image"><img data-testid="img-featured" src="./images/water-lilies.jpg" alt="Claude Monet’s Water Lilies, 1906: pale pink blooms across blue-green pond reflections" width="843" height="810"/></div>
             <figcaption><div><strong>Claude Monet</strong><span>Water Lilies, 1906</span><small>Oil on canvas · 89.9 × 94.1 cm</small></div><OutLink href={catalogUrl} id="link-featured-source">Art Institute of Chicago</OutLink></figcaption>
-            <div className="image-credit">Mr. and Mrs. Martin A. Ryerson Collection · Public domain <a data-testid="link-featured-image" href="https://commons.wikimedia.org/wiki/File:Claude_Monet_-_Water_Lilies_-_1933.1157_-_Art_Institute_of_Chicago.jpg" target="_blank" rel="noopener noreferrer">via Wikimedia Commons</a></div>
-            <button data-testid="button-saved" className="saved-link" onClick={()=>saved.mutate()} disabled={busy}>Explore this saved example <ArrowUpRight size={14}/></button>
           </figure>
         </section>
-        <section className="entry-footnote"><span className="eyebrow">LOOK CLOSELY. ASK BETTER QUESTIONS.</span><p>A source is a starting point, not a verdict.<br/>Follow the record. Keep the gaps visible.</p><button data-testid="button-how" onClick={()=>setPanel("method")}>How we read the evidence <ArrowRight size={16}/></button></section>
       </>}
       {stage==="results"&&<section className="results-section">
         <button data-testid="button-back-search" className="back-link" onClick={reset}><ArrowLeft size={15}/>Back to search</button>
-        <div className="section-heading"><div><span className="eyebrow">IDENTIFY BEFORE YOU INVESTIGATE</span><h1 ref={resultHeading} tabIndex={-1}>{artworks.length?"Is this your artwork?":"The record is still out there."}</h1></div><span className="mode-label">{artworks[0]?.mode==="saved"?"SAVED EXAMPLE":"LIVE COLLECTION SEARCH"}</span></div>
-        <p className="results-intro">{artworks.length?"A title can belong to different works in different museums. Check the date, medium and collection before continuing. These are candidate objects, not independent corroboration of one painting.":"No close artist-and-title match was found in the museum responses received. Check the coverage below: an unavailable catalog has not been searched successfully. This does not mean the artwork does not exist."}</p>
-        {!!providers.length&&<div className="collection-coverage" aria-label="Search coverage">{providers.map(p=><div key={p.provider} className={p.status==="unavailable"?"provider-unavailable":""}><span>{p.museum}</span><small>{p.status==="unavailable"?"Temporarily unavailable":`${p.matches} ${p.matches===1?"match":"matches"} returned`}</small></div>)}</div>}
-        {!artworks.length&&<div className="no-results"><Search size={28}/><h2>Try a different title or spelling.</h2><p>You can also return to the research room and add a reference image, or explore the saved Monet record.</p><button className="primary" data-testid="empty-back" onClick={reset}>Refine your search <ArrowRight size={16}/></button><button data-testid="empty-saved" className="text-button" onClick={()=>saved.mutate()} disabled={busy}>Open saved example</button></div>}
-        <div className="candidates">{artworks.map((art,index)=><article className={`candidate ${index===0?"recommended":""}`} key={`${art.provider}-${art.id}`}><div className="candidate-picture"><ArtImage art={art}/></div><div className="candidate-caption"><span className="eyebrow">{index===0?"RECOMMENDED RECORD":`ALTERNATIVE ${String(index).padStart(2,"0")}`}</span><h2>{art.title}</h2><p>{art.artist} · {art.date}</p><small>{art.medium}</small><small>{art.dimensions.split(";")[0]}</small><div className="candidate-match"><Check size={13}/>{art.match||"Saved, identified collection record"}</div><OutLink href={art.source} id={`source-${art.provider}-${art.id}`}>{art.museum} · {art.reference}</OutLink><p className="rights">{art.publicDomain?"Public-domain designation; display depends on image availability":"Image reuse not cleared; record only"}</p><button data-testid={`select-${art.provider}-${art.id}`} className={index===0?"primary":"secondary"} onClick={()=>confirm(art)}>Use this artwork <ArrowRight size={16}/></button></div></article>)}</div>
+        <div className="section-heading"><div><h1 ref={resultHeading} tabIndex={-1}>{artworks.length?"Is this your artwork?":"The record is still out there."}</h1></div></div>
+        <p className="results-intro">{artworks.length?"Check the date and museum before continuing.":"No close match in the collections that responded."}</p>
+        {!!providers.length&&<div className="collection-coverage" aria-label="Search coverage">{providers.map(p=><div key={p.provider} className={p.status==="unavailable"?"provider-unavailable":""}><span>{p.museum}</span><small>{p.status==="unavailable"?"Temporarily unavailable":`${p.matches} ${p.matches===1?"match":"matches"}`}</small></div>)}</div>}
+        {!artworks.length&&<div className="no-results"><Search size={28}/><h2>Try a different title or spelling.</h2><button className="primary" data-testid="empty-back" onClick={reset}>Refine your search <ArrowRight size={16}/></button><button data-testid="empty-saved" className="text-button" onClick={()=>saved.mutate()} disabled={busy}>Open saved example</button></div>}
+        <div className="candidates">{artworks.map((art,index)=><article className={`candidate ${index===0?"recommended":""}`} key={`${art.provider}-${art.id}`}><div className="candidate-picture"><ArtImage art={art}/></div><div className="candidate-caption">{index===0&&<span className="eyebrow">BEST MATCH</span>}<h2>{art.title}</h2><p>{art.artist} · {art.date}</p><small>{art.medium}</small><small>{art.dimensions.split(";")[0]}</small><OutLink href={art.source} id={`source-${art.provider}-${art.id}`}>{art.museum} · {art.reference}</OutLink><button data-testid={`select-${art.provider}-${art.id}`} className={index===0?"primary":"secondary"} onClick={()=>confirm(art)}>Use this artwork <ArrowRight size={16}/></button></div></article>)}</div>
       </section>}
       {stage==="dossier"&&selected&&<section className="dossier-section">
-        <div className="dossier-toolbar"><button data-testid="button-back-results" className="back-link" onClick={()=>{setStage("results");setPresentation(false);}}><ArrowLeft size={15}/>Choose another work</button><div><span className="mode-label">{selected.mode==="saved"?"SAVED COLLECTION RECORD":"LIVE COLLECTION RECORD"}</span><button data-testid="button-present" className="text-button" onClick={()=>setPresentation(!presentation)}><Expand size={15}/>{presentation?"Exit presentation":"Present"}</button><a className="text-button" data-testid="button-export" href={`${apiBase}/api/export/${selected.provider}/${selected.id}?mode=${selected.mode}`} target="_blank" rel="noopener noreferrer"><Download size={15}/>Export record</a></div></div>
-        <div className="object-grid"><figure className="object-image"><ArtImage art={selected} large/><figcaption>{selected.museum} · {selected.publicDomain?"Public domain":"Image not reproduced"}<br/>{selected.credit}{(cachedImage(selected)?.source||selected.imageSource)&&<div><OutLink href={cachedImage(selected)?.source||selected.imageSource!} id="link-image-source">{cachedImage(selected)?"Cached image":"Image"} via Wikimedia Commons</OutLink></div>}</figcaption></figure><article className="placard"><span className="eyebrow">OBJECT RECORD / {selected.reference}</span><p className="artist-name">{selected.artist}</p><h1 ref={resultHeading} tabIndex={-1}>{selected.title}</h1><p className="work-date">{selected.date}</p><div className="placard-details"><p>{selected.medium}</p><p>{selected.dimensions.split(";")[0]}</p></div><p className="credit-line">{selected.credit}</p><div className="placard-source"><span className="status-dot"/>Collection record identified</div><OutLink href={selected.source} id="link-object-source">View the museum record</OutLink><p className="placard-caveat">An identified record is not authentication of an object in your possession.</p></article></div>
+        <div className="dossier-toolbar"><button data-testid="button-back-results" className="back-link" onClick={()=>{setStage("results");setPresentation(false);}}><ArrowLeft size={15}/>Choose another work</button><div><button data-testid="button-present" className="text-button" onClick={()=>setPresentation(!presentation)}><Expand size={15}/>{presentation?"Exit presentation":"Present"}</button><a className="text-button" data-testid="button-export" href={`${apiBase}/api/export/${selected.provider}/${selected.id}?mode=${selected.mode}`} target="_blank" rel="noopener noreferrer"><Download size={15}/>Export record</a></div></div>
+        <div className="object-grid"><figure className="object-image"><ArtImage art={selected} large/><figcaption>{(cachedImage(selected)?.source||selected.imageSource)&&<div><OutLink href={cachedImage(selected)?.source||selected.imageSource!} id="link-image-source">{cachedImage(selected)?"Cached image":"Image"} via Wikimedia Commons</OutLink></div>}</figcaption></figure><article className="placard"><p className="artist-name">{selected.artist}</p><h1 ref={resultHeading} tabIndex={-1}>{selected.title}</h1><p className="work-date">{selected.date}</p><div className="placard-details"><p>{selected.medium}</p><p>{selected.dimensions.split(";")[0]}</p></div><p className="credit-line">{selected.credit}</p><OutLink href={selected.source} id="link-object-source">View the museum record</OutLink></article></div>
         <div className="research-body continuous-record">
-        <section className="record-grid" aria-labelledby="record-heading"><div><span className="eyebrow">WHAT WE KNOW, AND HOW</span><h2 id="record-heading">The source behind the image.</h2><p>This dossier displays the museum's object metadata and its published provenance text, where available. {hasHistoricalContext?"Additional historical context is integrated into the chronology and attributed to its own source. ":""}It does not claim independent corroboration or a complete ownership chain.</p><EvidencePanel art={selected} id="record-evidence"/></div><dl className="evidence-summary"><div><dt>Catalog source</dt><dd>{selected.museum}</dd></div><div><dt>Evidence status</dt><dd>{hasHistoricalContext?"Museum record with cited historical context":"Single-source museum record"}</dd></div><div><dt>Record retrieved</dt><dd>{new Date(selected.accessedAt).toLocaleDateString("en-US",{month:"long",day:"numeric",year:"numeric"})}{selected.mode==="saved"?" · saved snapshot":""}</dd></div><div><dt>Live web research</dt><dd>On request, below; prepared historical context is labeled separately</dd></div></dl></section>
         <section className="provenance-panel" aria-labelledby="provenance-heading">
-          <div className="research-heading"><h2 id="provenance-heading">The documented history.</h2><span className="mode-label">{hasHistoricalContext?"CATALOG + CITED HISTORICAL CONTEXT":"MUSEUM'S ACCOUNT · NOT INDEPENDENTLY VERIFIED"}</span></div>
-          <p className="muted">{hasHistoricalContext?"Follow the ownership record and the later claim and settlement in one chronology. Museum passages retain their wording; historical context is identified and separately sourced.":"The entries below preserve the museum's order and wording, including qualifications. Deposits are treated separately from ownership transfers."}</p>
+          <div className="research-heading"><h2 id="provenance-heading">Who owned it.</h2></div>
           {selected.provenance?<>
-            <div className="timeline">
-              {sections.map((s,i)=><article key={i} className="timeline-entry">
-                <span className="timeline-number">{String(i+1).padStart(2,"0")}</span>
-                <div><p>{s.trim()}{sectionSuffix(i)}</p><EvidencePanel art={selected} passage={`${s.trim()}${sectionSuffix(i)}`} id={`evidence-${i}`}/>
-                  {hasHistoricalContext&&/sold Galerie Paul Graupe.*1935/i.test(s)&&<HistoricalContext kind="claim"/>}
-                </div>
-              </article>)}
-              {hasHistoricalContext&&<article className="timeline-entry" data-testid="settlement-timeline-entry"><span className="timeline-number">{String(sections.length+1).padStart(2,"0")}</span><HistoricalContext kind="settlement"/></article>}
+            <p className="muted provenance-lede">{narrative?"Plain-English version written by AI from the museum's record. Open any entry for the museum's exact wording.":narrating?"Rewriting the museum's record in plain English…":"The museum's record, as published."}</p>
+            <div className={`timeline ${narrating?"is-loading":""}`}>
+              {sections.map((s,i)=>{const steps=narrative?.entries.filter(e=>e.index===i)||[];const raw=`${s.trim()}${sectionSuffix(i)}`;return <Fragment key={i}>
+                {steps.length?steps.map((n,k)=><Fragment key={k}><article className="timeline-entry" data-testid={`timeline-entry-${i}-${k}`}>
+                  <span className="timeline-period">{/^unknown$/i.test(n.period)?"Undated":n.period}</span>
+                  <div><p className="timeline-owner">{n.owner}</p><p className="timeline-text">{n.text}</p>{n.basis&&<p className="timeline-basis">Museum's source: {n.basis}</p>}
+                    {k===steps.length-1&&<EvidencePanel art={selected} passage={raw} id={`evidence-${i}`}/>}</div>
+                </article>{hasHistoricalContext&&/Graupe/i.test(n.owner)&&<HistoricalContext kind="claim"/>}</Fragment>):<article className="timeline-entry" data-testid={`timeline-entry-${i}`}>
+                  <span className="timeline-period">{String(i+1).padStart(2,"0")}</span>
+                  <div><p className="timeline-text">{raw}</p><EvidencePanel art={selected} passage={raw} id={`evidence-${i}`}/></div>
+                </article>}
+                {hasHistoricalContext&&!steps.length&&/sold Galerie Paul Graupe.*1935/i.test(s)&&<HistoricalContext kind="claim"/>}
+              </Fragment>;})}
+              {hasHistoricalContext&&<HistoricalContext kind="settlement"/>}
             </div>
-            <p className="provenance-note">Record gaps and source qualifications remain unresolved. This is not a title or authenticity assessment.</p>
-          </>:<div className="no-provenance"><h3>No provenance text supplied.</h3><p>The catalog did not return an ownership history for this work. Ask the institution for its curatorial documentation; do not infer a chain from the credit line.</p><EvidencePanel art={selected} id="missing-evidence"/></div>}
+          </>:<div className="no-provenance"><p>The museum didn't publish an ownership history for this work.</p><EvidencePanel art={selected} id="missing-evidence" label="Museum record"/></div>}
         </section>
         <ResearchRoom art={selected}/>
         </div>
       </section>}
     </main>
-    <footer><Logo/><span>Art first. Evidence always.</span><span>Collection discovery prototype · Built with Perplexity Computer</span></footer>
-    <dialog ref={dialog} onCancel={()=>setPanel(null)} onClick={e=>{if(e.target===dialog.current)setPanel(null);}}>
-      <div className="dialog-top"><span className="eyebrow">{panel==="method"?"THE RESEARCH PRINCIPLE":"FROM PROVENANCE TO PRODUCTION"}</span><button className="icon-button" data-testid="close-dialog" onClick={()=>setPanel(null)} aria-label="Close"><X size={20}/></button></div>
-      {panel==="method"?<><h2>A record, not a verdict.</h2><p>We start with artist and title, retrieve museum records, and recommend a display-permitted image with matching metadata. You confirm the work before exploring its history.</p><p>This preview searches the Met, Rijksmuseum, Art Institute of Chicago and Cleveland Museum of Art. The coverage row reports successful and unavailable catalogs. Results from different museums may depict different works; they do not corroborate each other.</p><p>Computer built this application and researched the explicitly labeled interview case note. The catalog record comes from public museum APIs. Open-web research runs only when you request it, through Perplexity's Agent API, and its results appear in a separate, labeled section with the sources each model retrieved.</p><OutLink href="https://api.artic.edu/docs/" id="link-method-docs">Collection API and image rights</OutLink></>:<><h2>Different objects.<br/>The same need for evidence.</h2><p>Buying art at auction starts with a question: what supports the story? Supplier qualification in robotics and manufacturing can begin with the same discipline.</p><div className="translation"><div><span>Ownership claim</span><ArrowRight size={15}/><span>Supplier relationship</span></div><div><span>Archive record</span><ArrowRight size={15}/><span>Supplier documentation</span></div><div><span>Gap in provenance</span><ArrowRight size={15}/><span>Missing traceability</span></div></div><p>Proposed buyer: Director of Strategic Sourcing, with a VP of Supply Chain sponsor. The pilot measures evidence quality and preparation effort; people retain technical review and approval.</p><small>No Computer-versus-Cowork performance claim has been measured in this preview.</small></>}
-    </dialog>
+    <footer><Logo/></footer>
     {busy&&<div className="sr-only" role="status" aria-live="polite">Looking up artwork records. Please wait.</div>}
   </div>;
 }

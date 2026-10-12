@@ -661,22 +661,23 @@
    "durationMs": 49692
   }
  ],
- "totalCost": 0.33737,
+ "totalCost": 0.33902,
  "saved": true,
  "synthesis": {
   "status": "done",
   "label": "Claude Sonnet 5.5",
   "model": "anthropic/claude-sonnet-5-5",
   "provider": "Anthropic",
-  "summary": "All three models find the catalog's chain consistent with published sources, but it omits the Silberberg restitution episode: heir Gerta Silberberg's forced-sale claim and the May 14, 2001 settlement under which the museum kept the painting. They differ on certainty: Gemini states the 1935 sale as forced, while Claude and GPT present it as the heir's allegation. Only Claude flags the 1965 vs 1967 date discrepancy in a secondary source. The 1935 buyer and owners until 1964 remain unidentified.",
+  "summary": "All three models find the catalog chain consistent with published sources and agree on the 2001 settlement that let the museum keep the painting. They differ on whether the 1935 sale was forced: Gemini states it as fact, while Claude and GPT treat it as the heir's unadjudicated allegation. Claude alone flags a conflicting 1965 date in a secondary source, and the reported payment rests on a press account. The 1935 buyer and the ownership from 1935 to 1964 remain unidentified.",
   "claims": [
    {
-    "claim": "Silberberg sold 19 works at Galerie Georges Petit in Paris in 1932 and kept others, including Courbets; this fits the 1923–1935 ownership, though the sources do not say whether this painting was in that sale.",
-    "date": "1932",
+    "headline": "Silberberg's background and persecution",
+    "claim": "Max Silberberg owned the painting until 1935 and was a Jewish collector from Breslau who was later murdered in the Holocaust (Auschwitz per Gemini). Claude also notes he sold works at Galerie Georges Petit in 1932 and was forced to sell his villa in 1935.",
+    "date": "by 1923 to 1935",
     "relation": "adds_to_catalog",
-    "agreement": "single_model",
+    "agreement": "partial",
     "needsReview": true,
-    "note": "Only Claude mentions the 1932 Petit sale, and it does not establish whether this painting was in it.",
+    "note": "Only Claude and Gemini give this context, and only Gemini names Auschwitz; GPT-6.1 Sol does not cover it.",
     "positions": [
      {
       "model": "Claude Opus 5.5",
@@ -688,20 +689,22 @@
      },
      {
       "model": "Gemini 3.1 Pro",
-      "stance": "not_mentioned"
+      "stance": "supports"
      }
     ],
     "sourceUrls": [
-     "https://en.wikipedia.org/wiki/Max_Silberberg"
+     "https://en.wikipedia.org/wiki/Max_Silberberg",
+     "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet"
     ]
    },
    {
-    "claim": "Max Silberberg, Jewish collector from Breslau, owned the painting until the Paul Graupe auction in Berlin on March 22–23, 1935, which is documented (catalogue digitized; AAMD testimony confirms the sale); he was later murdered in the Holocaust.",
+    "headline": "March 1935 Graupe auction confirmed",
+    "claim": "The Paul Graupe auction took place in Berlin on March 23, 1935. Claude, citing the taz and UK Spoliation Advisory Panel sources, ties it to liquidated stock and Silberberg's collection. GPT cites the digitized Heidelberg catalogue and AAMD testimony for the date and Silberberg's ownership.",
     "date": "1935-03-23",
     "relation": "confirms_catalog",
     "agreement": "partial",
     "needsReview": true,
-    "note": "Models agree on the sale and date but differ in detail: Gemini adds that he was murdered at Auschwitz, Claude adds the liquidated Burchard stock, and GPT notes lot 20 was not seen in the catalogue record.",
+    "note": "Claude and GPT confirm the sale; Gemini mentions it only as a forced sale, and the lot 20 entry was not verified.",
     "positions": [
      {
       "model": "Claude Opus 5.5",
@@ -717,72 +720,74 @@
      }
     ],
     "sourceUrls": [
-     "https://digi.ub.uni-heidelberg.de/diglit/graupe1935_03_23",
-     "https://financialservices.house.gov/media/pdf/072706jc.pdf",
      "https://taz.de/Kunsthandel-in-der-NS-Zeit/!5122888/",
      "https://assets.publishing.service.gov.uk/media/5a807306e5274a2e8ab5035a/53629_HC_777_Print_Ready.pdf",
-     "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet",
-     "https://en.wikipedia.org/wiki/Max_Silberberg"
+     "https://digi.ub.uni-heidelberg.de/diglit/graupe1935_03_23",
+     "https://financialservices.house.gov/media/pdf/072706jc.pdf"
     ]
    },
    {
-    "claim": "A UK Spoliation Advisory Panel report says Silberberg's collection was sold in four Graupe auctions in 1935 and a final one on 7 January 1936 after financial pressure and a forced move, placing the March 1935 sale in a series of sales under persecution.",
-    "date": "1935-1936",
+    "headline": "1935 sale was forced",
+    "claim": "The March 1935 Graupe sale was a forced sale under Nazi persecution. Gemini states this as fact and as widely reported by historians. GPT and Claude present it as the heir's allegation that no court or panel ruled on, although Claude's sources place the sale within a series of sales made under persecution.",
+    "date": "1935",
     "relation": "adds_to_catalog",
-    "agreement": "single_model",
+    "agreement": "disagree",
     "needsReview": true,
-    "note": "Only Claude cites the UK panel report for the series of sales.",
+    "note": "Gemini treats the forced-sale characterization as established, while GPT and Claude say it remains an unadjudicated allegation.",
     "positions": [
      {
       "model": "Claude Opus 5.5",
-      "stance": "supports"
+      "stance": "reports_as_allegation"
      },
      {
       "model": "GPT-6.1 Sol",
-      "stance": "not_mentioned"
+      "stance": "reports_as_allegation"
      },
      {
       "model": "Gemini 3.1 Pro",
-      "stance": "not_mentioned"
+      "stance": "supports"
      }
     ],
     "sourceUrls": [
+     "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+     "https://en.wikipedia.org/wiki/Max_Silberberg",
      "https://assets.publishing.service.gov.uk/media/5a807306e5274a2e8ab5035a/53629_HC_777_Print_Ready.pdf"
     ]
    },
    {
-    "claim": "The 1935 Graupe sale was a forced sale under Nazi persecution, as alleged by Silberberg's heir Gerta Silberberg; no court or panel ruled on it.",
-    "date": "2000-2001",
-    "relation": "adds_to_catalog",
-    "agreement": "disagree",
+    "headline": "Conflicting 1965 acquisition date",
+    "claim": "The Silberberg Wikipedia article says the Art Institute acquired the painting from Paul Rosenberg in 1965, while the catalog says 1967. Claude considers 1965 probably an error in the secondary source.",
+    "date": "1965",
+    "relation": "conflicts_with_catalog",
+    "agreement": "single_model",
     "needsReview": true,
-    "note": "Claude and GPT treat this as the heir's allegation, while Gemini states it as a forced sale 'widely reported by historians', which leans toward fact.",
+    "note": "Only Claude flags this conflict, and it treats the Wikipedia date as likely erroneous.",
     "positions": [
      {
       "model": "Claude Opus 5.5",
-      "stance": "reports_as_allegation"
+      "stance": "contradicts"
      },
      {
       "model": "GPT-6.1 Sol",
-      "stance": "reports_as_allegation"
+      "stance": "not_mentioned"
      },
      {
       "model": "Gemini 3.1 Pro",
-      "stance": "supports"
+      "stance": "not_mentioned"
      }
     ],
     "sourceUrls": [
-     "https://financialservices.house.gov/media/pdf/072706jc.pdf",
      "https://en.wikipedia.org/wiki/Max_Silberberg"
     ]
    },
    {
-    "claim": "The Art Institute, which bought the painting in 1967, recorded Silberberg's ownership on labels. In 2000 it contacted heir Gerta Silberberg, took the work off display, and discussed ownership.",
+    "headline": "Museum contacts heir, 2000",
+    "claim": "In March 2000 the Art Institute took the painting off display and contacted Gerta Silberberg, Max Silberberg's daughter-in-law and heir, who pursued restitution. The museum had acknowledged Silberberg's ownership on labels since acquisition.",
     "date": "2000-03",
     "relation": "adds_to_catalog",
-    "agreement": "agree",
-    "needsReview": false,
-    "note": "Gemini notes only the 2000 contact; Claude and GPT detail the proactive outreach and removal from display.",
+    "agreement": "partial",
+    "needsReview": true,
+    "note": "All three describe the heir's involvement in 2000, but only Claude and GPT mention the removal from display and the museum's initiative; Gemini says she pursued the claim.",
     "positions": [
      {
       "model": "Claude Opus 5.5",
@@ -804,12 +809,13 @@
     ]
    },
    {
-    "claim": "On May 14, 2001 the Art Institute and Gerta Silberberg reached an undisclosed settlement; the museum kept title and possession and added a label acknowledging Silberberg's ownership.",
+    "headline": "2001 settlement, museum keeps painting",
+    "claim": "On May 14, 2001 the Art Institute and Gerta Silberberg reached an undisclosed settlement. The museum kept title and possession, and a label acknowledging Max Silberberg's ownership was added.",
     "date": "2001-05-14",
     "relation": "adds_to_catalog",
     "agreement": "agree",
     "needsReview": false,
-    "note": "All three models report the settlement consistently.",
+    "note": "All three models agree; the catalog omits this settlement.",
     "positions": [
      {
       "model": "Claude Opus 5.5",
@@ -827,16 +833,17 @@
     "sourceUrls": [
      "https://financialservices.house.gov/media/pdf/072706jc.pdf",
      "https://en.wikipedia.org/wiki/Art_Institute_of_Chicago",
-     "https://en.wikipedia.org/wiki/Fritz_Nathan"
+     "https://www.ksl.com/article/351019"
     ]
    },
    {
-    "claim": "Press reports say the museum paid an undisclosed sum to Silberberg's family to retain the painting; the institutional account does not specify payment.",
+    "headline": "Reported undisclosed payment to family",
+    "claim": "Press reports (KSL, 2006) say the museum paid an undisclosed sum to Silberberg's family to keep the painting. The institutional account confirms only an undisclosed agreement.",
     "date": "2006-07-10",
     "relation": "adds_to_catalog",
     "agreement": "partial",
     "needsReview": true,
-    "note": "Claude and GPT report this from press accounts while Gemini does not mention it, and the institutional account does not confirm payment.",
+    "note": "Payment is a press report, not confirmed by the AAMD account, and Gemini does not mention it.",
     "positions": [
      {
       "model": "Claude Opus 5.5",
@@ -857,12 +864,13 @@
     ]
    },
    {
-    "claim": "In 2024 the Art Institute cited the Silberberg settlement as an example of its provenance work when expanding its provenance team; Claude also notes a May 2026 Open Art Data comparison of provenance texts, and a secondary source gives 1965 rather than 1967 for the museum's purchase.",
+    "headline": "2024 provenance program cites case",
+    "claim": "In December 2024 the Art Institute cited the Silberberg settlement as an example of its provenance work when expanding its provenance team. Claude also notes a May 2026 Open Art Data dataset comparing the museum's provenance texts that includes this painting.",
     "date": "2024-12-02",
-    "relation": "conflicts_with_catalog",
+    "relation": "adds_to_catalog",
     "agreement": "partial",
     "needsReview": true,
-    "note": "Claude and GPT cite the 2024 report; only Claude adds the Open Art Data dataset and a Wikipedia 1965 date that conflicts with the catalog's 1967.",
+    "note": "Claude and GPT cite the 2024 report; Gemini uses the same article only for background, and only Claude mentions the 2026 dataset.",
     "positions": [
      {
       "model": "Claude Opus 5.5",
@@ -879,13 +887,12 @@
     ],
     "sourceUrls": [
      "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet",
-     "https://www.openartdata.org/search/label/Art%20Institute%20of%20Chicago?m=0",
-     "https://en.wikipedia.org/wiki/Max_Silberberg"
+     "https://www.openartdata.org/search/label/Art%20Institute%20of%20Chicago?m=0"
     ]
    }
   ],
-  "cost": 0.0517,
-  "durationMs": 17080
+  "cost": 0.05335,
+  "durationMs": 20542
  },
  "finishedAt": "2026-10-12T03:43:47.571Z"
 }

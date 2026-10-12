@@ -101,3 +101,11 @@ The dossier page includes a separate, labeled section, **Test the record against
 - **Measured costs on the Courbet case (October 2026):** frontier comparison $0.34, frontier one-model search $0.07, efficient comparison about $0.06. Each run shows its actual API cost from the API response.
 - **Safeguards:** a fixed server-side prompt (visitors cannot send free-form prompts); 6 runs per visitor per 10 minutes; a daily spend cap (`RESEARCH_DAILY_CAP_USD`, default $3); a one-hour result cache; and a 170-second timeout per model. Saved runs live in `fixtures/research/` (set `RESEARCH_SAVE_RUNS=1` to record new ones).
 - **Configuration:** set `PERPLEXITY_API_KEY`. In Perplexity Computer or on pplx.app, the credential proxy variables `CUSTOM_CRED_API_PERPLEXITY_AI_URL` and `CUSTOM_CRED_API_PERPLEXITY_AI_PROXY_AUTH_KEY` are used instead.
+
+### Plain-language provenance
+
+The ownership history shows one entry per owner, written in plain English by GPT-6 Luna from the museum's own text (`POST /api/narrative`; no web search; about $0.001 per artwork). The model is told to add no facts and to keep the museum's hedges. Each entry links back to the museum's exact wording. Results are cached in `fixtures/narratives/`. If the API is unavailable, the museum's original wording is shown instead.
+
+### Disagreement view
+
+Three-model results open with a count of disagreements. A grid then shows each model's position on every claim. A disagreement is any claim the models state differently (for example, fact versus allegation), and the model that differs is highlighted. The comparison step also writes a short label (`headline`) for each claim. `script/resynth.ts` re-runs only that step on a saved comparison.

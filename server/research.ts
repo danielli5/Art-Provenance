@@ -69,9 +69,9 @@ const councilSchema = {
   properties: {
     summary: { type: "string" },
     claims: { type: "array", items: { type: "object", additionalProperties: false,
-      required: ["claim", "date", "relation", "positions", "agreement", "needsReview", "note", "sourceUrls"],
+      required: ["headline", "claim", "date", "relation", "positions", "agreement", "needsReview", "note", "sourceUrls"],
       properties: {
-        claim: { type: "string" }, date: { type: "string" },
+        headline: { type: "string" }, claim: { type: "string" }, date: { type: "string" },
         relation: { type: "string", enum: ["confirms_catalog", "adds_to_catalog", "conflicts_with_catalog"] },
         positions: { type: "array", items: { type: "object", additionalProperties: false, required: ["model", "stance"],
           properties: { model: { type: "string" }, stance: { type: "string", enum: ["supports", "reports_as_allegation", "contradicts", "not_mentioned"] } } } },
@@ -191,10 +191,15 @@ async function runResearcher(job: ResearchJob, run: ModelRun, request: ResearchR
   }
 }
 
-async function runCouncil(job: ResearchJob, request: ResearchRequest, tier: ResearchTier) {
+export async function runCouncil(job: ResearchJob, request: ResearchRequest, tier: ResearchTier) {
   await Promise.all(job.runs.map(run => runResearcher(job, run, request)));
   const finished = job.runs.filter(r => r.status === "done");
   if (finished.length < 2) { job.status = "failed"; job.error = "Fewer than two models finished, so there is nothing to compare."; return; }
+  await synthesizeOnly(job, request, tier);
+}
+
+async function synthesizeOnly(job: ResearchJob, request: ResearchRequest, tier: ResearchTier) {
+  const finished = job.runs.filter(r => r.status === "done");
   const synth = lineups[tier].synthesizer;
   job.synthesis = { status: "running", label: synth.label, model: synth.model, provider: synth.provider };
   const started = Date.now();
@@ -211,6 +216,7 @@ ${JSON.stringify(reports, null, 1)}`;
 - For every claim give one position per model (${finished.map(r => r.label).join(", ")}): "supports" if the model states it as fact, "reports_as_allegation" if the model presents it as a claim or allegation, "contradicts" if it conflicts, "not_mentioned" otherwise.
 - agreement: "agree" if all models support it in the same way; "partial" if some do not mention it or differ in certainty; "disagree" if any contradicts or one treats an allegation as fact; "single_model" if only one model mentions it.
 - needsReview is true for anything other than full agreement, and for any allegation.
+- headline: a 3-7 word label for the claim, e.g. "1935 sale was forced".
 - note: one short sentence explaining the difference or why it needs review.
 - sourceUrls: only URLs that appear in the reports.`;
     const result = await callAgent(synth.model, input, instructions, "council_synthesis", councilSchema, false);
@@ -218,7 +224,7 @@ ${JSON.stringify(reports, null, 1)}`;
     const labels = new Set(finished.map(r => r.label));
     job.synthesis.summary = String(parsed.summary || "");
     job.synthesis.claims = (parsed.claims || []).slice(0, 8).map((c: any): CouncilClaim => ({
-      claim: String(c.claim), date: String(c.date || ""), relation: c.relation, agreement: c.agreement,
+      headline: String(c.headline || ""), claim: String(c.claim), date: String(c.date || ""), relation: c.relation, agreement: c.agreement,
       needsReview: Boolean(c.needsReview) || c.agreement !== "agree", note: String(c.note || ""),
       positions: (c.positions || []).filter((p: any) => labels.has(p.model)).map((p: any) => ({ model: String(p.model), stance: p.stance })),
       sourceUrls: keepRetrieved(c.sourceUrls, retrieved),
@@ -302,5 +308,68 @@ export function registerResearchRoutes(app: Express) {
     const job = jobs.get(String(req.params.id));
     if (!job) { res.status(404).json({ message: "This research run is no longer available." }); return; }
     res.json(job);
+  });
+}
+
+// Re-run only the comparison step on a saved council run (used to refresh saved fixtures).
+export async function resynthesize(path: string) {
+  const job: ResearchJob = JSON.parse(await readFile(path, "utf8"));
+  const request = JSON.parse(await readFile(path.replace(/\.json$/, ".request.json"), "utf8")) as ResearchRequest;
+  const runs = job.runs;
+  // runCouncil re-runs researchers; reuse existing reports by stubbing them as done.
+  const synthOnly: ResearchJob = { ...job, runs };
+  await synthesizeOnly(synthOnly, request, job.tier);
+  await writeFile(path, JSON.stringify({ ...synthOnly, saved: true, totalCost: runs.reduce((s, r) => s + (r.cost || 0), 0) + (synthOnly.synthesis?.cost || 0) }, null, 1));
+  return synthOnly;
+}
+
+// ---------- Plain-language provenance ----------
+const narrativeSchema = {
+  type: "object", additionalProperties: false, required: ["entries"],
+  properties: { entries: { type: "array", items: { type: "object", additionalProperties: false,
+    required: ["index", "period", "owner", "text", "basis"],
+    properties: { index: { type: "integer" }, period: { type: "string" }, owner: { type: "string" }, text: { type: "string" }, basis: { type: "string" } } } } },
+};
+const narrativeInstructions = `You rewrite museum provenance entries into plain English so a non-specialist can follow who owned an artwork and when.
+Rules:
+- Produce one item per ownership step: one owner, dealer, sale, or institution. If a numbered entry names several owners, split it into several items. Each item's index is the number of the entry it came from. Keep the museum's order, and cover every entry.
+- Add no facts. Use only what the entry says. Do not resolve uncertainty: keep words like "possibly", "probably", "by", "until", "?" as plain-English hedges ("probably", "by at least 1923").
+- period: a short time label such as "Before 1923", "1923–1935", "March 1935", or "Unknown" if the entry gives no date.
+- owner: the single owner, dealer, auction house, or institution for this step, with city if given (e.g. "Max Silberberg, Breslau"). Write institution names in full (e.g. "Art Institute of Chicago"). For an unnamed owner, use the museum's description (e.g. "A private collector in Germany").
+- text: one or two short sentences, at most 35 words, in past tense, naming how the work changed hands (bought, sold, inherited, lent, given) when the entry says so. Expand abbreviations (e.g. "no." to "lot", "by descent" to "inherited within the family").
+- basis: the source the museum cites for this entry, in a few words (e.g. "Scheffler 1923; 1935 sale catalogue"), or "" if none. Remove bracketed citations from text and put them here.`;
+
+const narrativeCache = new Map<string, unknown>();
+const narrativeDir = "fixtures/narratives";
+async function narrate(provider: string, objectId: number, parts: string[]) {
+  const key = `${provider}-${objectId}-v2-${hashParts(parts)}`;
+  if (narrativeCache.has(key)) return narrativeCache.get(key);
+  const file = `${narrativeDir}/${key}.json`;
+  try { const saved = JSON.parse(await readFile(file, "utf8")); narrativeCache.set(key, saved); return saved; } catch {}
+  if (spentToday() >= dailyCap) throw new Error("budget");
+  const input = parts.map((p, i) => `[${i}] ${p}`).join("\n");
+  const result = await callAgent("openai/gpt-6-luna", input, narrativeInstructions, "plain_provenance", narrativeSchema, false);
+  const parsed = JSON.parse(result.text);
+  const entries = (parsed.entries || []).filter((e: any) => Number.isInteger(e.index) && e.index >= 0 && e.index < parts.length)
+    .map((e: any) => ({ index: e.index, period: String(e.period || ""), owner: String(e.owner || ""), text: String(e.text || ""), basis: String(e.basis || "") }));
+  if (!parts.every((_, i) => entries.some((e: any) => e.index === i))) throw new Error("incomplete");
+  const out = { entries, model: "GPT-6 Luna", cost: result.cost };
+  narrativeCache.set(key, out);
+  await mkdir(narrativeDir, { recursive: true });
+  await writeFile(file, JSON.stringify(out, null, 1));
+  return out;
+}
+function hashParts(parts: string[]) {
+  let h = 5381; for (const c of parts.join("|")) h = ((h << 5) + h + c.charCodeAt(0)) >>> 0; return h.toString(36);
+}
+export function registerNarrativeRoute(app: Express) {
+  app.post("/api/narrative", async (req, res) => {
+    const b = req.body || {};
+    const parts: unknown = b.parts;
+    if (!/^(aic|met|cleveland|rijks)$/.test(String(b.provider)) || !Number.isInteger(b.objectId) || !Array.isArray(parts) || !parts.length || parts.length > 40 || parts.some(p => typeof p !== "string" || p.length > 2000)) {
+      res.status(400).json({ message: "Invalid request" }); return;
+    }
+    try { res.json(await narrate(String(b.provider), b.objectId, parts as string[])); }
+    catch { res.status(503).json({ message: "Plain-language version unavailable" }); }
   });
 }

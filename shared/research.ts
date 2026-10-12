@@ -30,7 +30,7 @@ export type ModelRun = {
 };
 export type Stance = "supports" | "reports_as_allegation" | "contradicts" | "not_mentioned";
 export type CouncilClaim = {
-  claim: string; date: string; relation: Relation;
+  headline?: string; claim: string; date: string; relation: Relation;
   positions: { model: string; stance: Stance }[];
   agreement: "agree" | "partial" | "disagree" | "single_model";
   needsReview: boolean; note: string; sourceUrls: string[];
@@ -49,3 +49,6 @@ export type ResearchConfig = {
   tiers: Record<ResearchTier, { single: { label: string; provider: string; model: string }; researchers: { label: string; provider: string; model: string }[]; synthesizer: { label: string; provider: string; model: string } }>;
   dailyCapUsd: number; spentTodayUsd: number;
 };
+
+export type NarrativeEntry = { index: number; period: string; owner: string; text: string; basis: string };
+export type Narrative = { entries: NarrativeEntry[]; model: string; cost?: number };

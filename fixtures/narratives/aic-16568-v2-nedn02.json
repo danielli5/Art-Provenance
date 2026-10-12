@@ -1,0 +1,69 @@
+{
+ "entries": [
+  {
+   "index": 0,
+   "period": "Unknown",
+   "owner": "The artist",
+   "text": "The artist owned the work and died in 1926.",
+   "basis": ""
+  },
+  {
+   "index": 1,
+   "period": "June 3, 1909",
+   "owner": "Durand-Ruel, Paris",
+   "text": "Durand-Ruel acquired a three-quarter interest for 14,000 francs.",
+   "basis": "Durand-Ruel stock book (1901–13); Durand-Ruel Archives correspondence (2013)"
+  },
+  {
+   "index": 1,
+   "period": "June 3, 1909",
+   "owner": "Bernheim-Jeune, Paris",
+   "text": "Bernheim-Jeune acquired a one-quarter interest for 14,000 francs.",
+   "basis": "Durand-Ruel stock book (1901–13); Durand-Ruel Archives correspondence (2013)"
+  },
+  {
+   "index": 2,
+   "period": "May 29, 1909",
+   "owner": "Henri Bernstein, Paris",
+   "text": "Bernstein acquired the work for 20,000 francs.",
+   "basis": "Durand-Ruel Archives correspondence (2013)"
+  },
+  {
+   "index": 3,
+   "period": "August 9, 1909",
+   "owner": "Durand-Ruel, Paris",
+   "text": "Durand-Ruel acquired the work for 20,000 francs.",
+   "basis": "Durand-Ruel stock book (1901–13); Durand-Ruel Archives correspondence (2013)"
+  },
+  {
+   "index": 4,
+   "period": "April 1911",
+   "owner": "Durand-Ruel, New York",
+   "text": "The work was placed on deposit with Durand-Ruel.",
+   "basis": "Durand-Ruel deposit book (1894–1925); Durand-Ruel Archives correspondence (2013)"
+  },
+  {
+   "index": 5,
+   "period": "February 10, 1914",
+   "owner": "Durand-Ruel, New York",
+   "text": "Durand-Ruel acquired the work.",
+   "basis": "Durand-Ruel stock book (1904–24); Durand-Ruel Archives correspondence (2013)"
+  },
+  {
+   "index": 6,
+   "period": "February 10, 1914",
+   "owner": "Martin A. Ryerson, Chicago",
+   "text": "Durand-Ruel sold the work to Ryerson for $5,000.",
+   "basis": "Durand-Ruel stock book (1904–24); purchase receipt; Durand-Ruel Archives correspondence (2013)"
+  },
+  {
+   "index": 7,
+   "period": "1933",
+   "owner": "Art Institute of Chicago",
+   "text": "The work was bequeathed to the Art Institute of Chicago.",
+   "basis": ""
+  }
+ ],
+ "model": "GPT-6 Luna",
+ "cost": 0.00091
+}

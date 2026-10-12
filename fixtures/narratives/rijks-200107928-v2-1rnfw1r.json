@@ -1,0 +1,41 @@
+{
+ "entries": [
+  {
+   "index": 0,
+   "period": "Unknown",
+   "owner": "The sitters",
+   "text": "The work was commissioned by or for the sitters for the great hall of the Kloveniersdoelen, the arquebusiers’ civic guard headquarters in Amsterdam.",
+   "basis": ""
+  },
+  {
+   "index": 1,
+   "period": "1653",
+   "owner": "Kloveniersdoelen, Amsterdam",
+   "text": "The work was first recorded at the Kloveniersdoelen in 1653, described as a painting by Rembrandt from 1642.",
+   "basis": "Schaep 1653, p. 135, lot 4"
+  },
+  {
+   "index": 2,
+   "period": "1715",
+   "owner": "Small Council of War Chamber, Town Hall, Amsterdam",
+   "text": "In 1715, the work was transferred from the Kloveniersdoelen to the Small Council of War Chamber in the Town Hall on Dam Square.",
+   "basis": "Archival resolution of 23 May 1715; Dyserinck 1890, p. 245"
+  },
+  {
+   "index": 2,
+   "period": "1808",
+   "owner": "Cornelis Sebille Roos, Amsterdam",
+   "text": "In 1808, the work was transferred to Roos’s house, the Trippenhuis, at 29 Kloveniersburgwal.",
+   "basis": ""
+  },
+  {
+   "index": 3,
+   "period": "Since 1808",
+   "owner": "City of Amsterdam",
+   "text": "The City of Amsterdam lent the work to the museum from 1808.",
+   "basis": "Brugmans 1913, p. 60"
+  }
+ ],
+ "model": "GPT-6 Luna",
+ "cost": 0.00076
+}

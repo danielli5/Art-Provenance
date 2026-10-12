@@ -1,0 +1,62 @@
+{
+ "entries": [
+  {
+   "index": 0,
+   "period": "Before 1923",
+   "owner": "Adolf Rothermundt, Dresden-Blasewitz",
+   "text": "Adolf Rothermundt owned the work before 1923.",
+   "basis": "Scheffler 1923; 1935 Graupe sale catalogue"
+  },
+  {
+   "index": 0,
+   "period": "1923–1935",
+   "owner": "Max Silberberg, Breslau",
+   "text": "Max Silberberg owned the work by 1923 and until 1935.",
+   "basis": "Nathan letter, 18 July 1967; Scheffler 1923"
+  },
+  {
+   "index": 1,
+   "period": "March 23, 1935",
+   "owner": "Galerie Paul Graupe, Berlin",
+   "text": "The work was sold at Galerie Paul Graupe, lot 20.",
+   "basis": "Die Weltkunst 1935"
+  },
+  {
+   "index": 1,
+   "period": "Unknown",
+   "owner": "A private collector in Germany",
+   "text": "A private collector in Germany owned the work.",
+   "basis": "Alexander, Graf Strasoldo, letter of 21 September 1998"
+  },
+  {
+   "index": 2,
+   "period": "November 11–14, 1964",
+   "owner": "Lempertz, Cologne",
+   "text": "The work was sold at Lempertz, lot 289, to Galerie Nathan, Zurich.",
+   "basis": "Nathan letter"
+  },
+  {
+   "index": 2,
+   "period": "November 1964",
+   "owner": "Galerie Nathan, Zurich",
+   "text": "Galerie Nathan bought the work at Lempertz.",
+   "basis": "Nathan letter"
+  },
+  {
+   "index": 3,
+   "period": "June 4, 1965",
+   "owner": "Paul Rosenberg Gallery and Co., New York",
+   "text": "Galerie Nathan sold the work to Paul Rosenberg Gallery and Co.",
+   "basis": "Invoice copy in curatorial file"
+  },
+  {
+   "index": 4,
+   "period": "1967",
+   "owner": "Art Institute of Chicago",
+   "text": "The Art Institute of Chicago acquired the work in 1967.",
+   "basis": ""
+  }
+ ],
+ "model": "GPT-6 Luna",
+ "cost": 0.00105
+}

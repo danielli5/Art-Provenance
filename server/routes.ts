@@ -3,7 +3,7 @@ import type { Server } from "node:http";
 import { readFile } from "node:fs/promises";
 import { searchSchema, type Artwork } from "../shared/artwork";
 import { curatedImages } from "../shared/curated-images";
-import { registerResearchRoutes } from "./research";
+import { registerResearchRoutes, registerNarrativeRoute } from "./research";
 import { museumNames,searchMet,searchCleveland,searchRijks,metObject,clevelandObject,rijksObject,matchScore } from "./museums";
 
 const API="https://api.artic.edu/api/v1";
@@ -105,5 +105,6 @@ export async function registerRoutes(httpServer:Server,app:Express):Promise<Serv
     }catch{res.status(422).json({message:"Could not export this record. Please try again."});}
   });
   registerResearchRoutes(app);
+  registerNarrativeRoute(app);
   return httpServer;
 }

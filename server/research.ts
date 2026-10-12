@@ -110,6 +110,17 @@ function addSpend(usd: number) {
   if (spend.day !== day) spend = { day, usd: 0 };
   spend.usd += usd;
 }
+// Budget reserved for runs still in progress, so concurrent runs cannot overshoot the cap.
+let reserved = 0;
+const estimate = { council: 0.6, search: 0.15, narrative: 0.01 } as const;
+function reserve(kind: keyof typeof estimate) {
+  if (spentToday() + reserved + estimate[kind] > dailyCap) return null;
+  reserved += estimate[kind];
+  let released = false;
+  return () => { if (!released) { released = true; reserved = Math.max(0, reserved - estimate[kind]); } };
+}
+let runsToday = { day: "", n: 0 };
+const maxRunsPerDay = Number(process.env.RESEARCH_MAX_RUNS_PER_DAY || 40);
 function spentToday() {
   const day = new Date().toISOString().slice(0, 10);
   return spend.day === day ? spend.usd : 0;
@@ -261,12 +272,17 @@ export function registerResearchRoutes(app: Express) {
     if (cached && Date.now() - cached.time < 60 * 60 * 1000 && jobs.get(cached.jobId)?.status === "done") {
       res.json({ jobId: cached.jobId, cached: true }); return;
     }
-    if (spentToday() >= dailyCap) { res.status(429).json({ message: "Today's research budget for this demo has been used. The saved run is still available." }); return; }
-    const visitor = req.get("X-Visitor-Id") || req.ip || "local";
+    const day = new Date().toISOString().slice(0, 10);
+    if (runsToday.day !== day) runsToday = { day, n: 0 };
+    if (runsToday.n >= maxRunsPerDay) { res.status(429).json({ message: "Today's research limit for this demo has been reached. The saved run is still available." }); return; }
+    const visitor = req.ip || "local";
     const now = Date.now();
     const recent = (visitorRuns.get(visitor) || []).filter(t => now - t < 10 * 60 * 1000);
     if (recent.length >= 6) { res.status(429).json({ message: "Please wait a few minutes before running more research." }); return; }
+    const release = reserve(request.mode);
+    if (!release) { res.status(429).json({ message: "Today's research budget for this demo has been used. The saved run is still available." }); return; }
     visitorRuns.set(visitor, [...recent, now]);
+    runsToday.n++;
 
     const lineup = lineups[request.tier];
     const models = request.mode === "council" ? lineup.researchers : [lineup.single];
@@ -278,11 +294,13 @@ export function registerResearchRoutes(app: Express) {
     jobs.set(job.id, job);
     if (jobs.size > 200) { const oldest = jobs.keys().next().value; if (oldest) jobs.delete(oldest); }
     (async () => {
+      try {
       if (request.mode === "council") await runCouncil(job, request, request.tier);
       else {
         await runResearcher(job, job.runs[0], request);
         if (job.runs[0].status === "failed") { job.status = "failed"; job.error = job.runs[0].error; }
       }
+      } finally { release(); }
       if (job.status !== "failed") job.status = "done";
       job.totalCost = job.runs.reduce((s, r) => s + (r.cost || 0), 0) + (job.synthesis?.cost || 0);
       job.finishedAt = new Date().toISOString();
@@ -346,9 +364,12 @@ async function narrate(provider: string, objectId: number, parts: string[]) {
   if (narrativeCache.has(key)) return narrativeCache.get(key);
   const file = `${narrativeDir}/${key}.json`;
   try { const saved = JSON.parse(await readFile(file, "utf8")); narrativeCache.set(key, saved); return saved; } catch {}
-  if (spentToday() >= dailyCap) throw new Error("budget");
+  const release = reserve("narrative");
+  if (!release) throw new Error("budget");
   const input = parts.map((p, i) => `[${i}] ${p}`).join("\n");
-  const result = await callAgent("openai/gpt-6-luna", input, narrativeInstructions, "plain_provenance", narrativeSchema, false);
+  let result: AgentResult;
+  try { result = await callAgent("openai/gpt-6-luna", input, narrativeInstructions, "plain_provenance", narrativeSchema, false); }
+  finally { release(); }
   const parsed = JSON.parse(result.text);
   const entries = (parsed.entries || []).filter((e: any) => Number.isInteger(e.index) && e.index >= 0 && e.index < parts.length)
     .map((e: any) => ({ index: e.index, period: String(e.period || ""), owner: String(e.owner || ""), text: String(e.text || ""), basis: String(e.basis || "") }));

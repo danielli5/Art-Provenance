@@ -47,7 +47,7 @@ export async function registerRoutes(httpServer:Server,app:Express):Promise<Serv
   app.use("/api",(req,res,next)=>{
     res.setHeader("X-Content-Type-Options","nosniff");
     if(req.method==="GET"&&req.path.startsWith("/research/")){next();return;}
-    const key=req.get("X-Visitor-Id")||req.ip||"local";const now=Date.now();
+    const key=req.ip||"local";const now=Date.now();
     let bucket=counters.get(key);if(!bucket||now-bucket.t>60000)bucket={n:0,t:now};
     bucket.n++;if(counters.size>1000)counters.clear();counters.set(key,bucket);
     if(bucket.n>35){res.status(429).json({message:"Please wait a minute before searching again."});return;}next();

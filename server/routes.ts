@@ -3,6 +3,7 @@ import type { Server } from "node:http";
 import { readFile } from "node:fs/promises";
 import { searchSchema, type Artwork } from "../shared/artwork";
 import { curatedImages } from "../shared/curated-images";
+import { registerResearchRoutes } from "./research";
 import { museumNames,searchMet,searchCleveland,searchRijks,metObject,clevelandObject,rijksObject,matchScore } from "./museums";
 
 const API="https://api.artic.edu/api/v1";
@@ -45,6 +46,7 @@ async function resolveImage(art:Artwork):Promise<Artwork>{
 export async function registerRoutes(httpServer:Server,app:Express):Promise<Server>{
   app.use("/api",(req,res,next)=>{
     res.setHeader("X-Content-Type-Options","nosniff");
+    if(req.method==="GET"&&req.path.startsWith("/research/")){next();return;}
     const key=req.get("X-Visitor-Id")||req.ip||"local";const now=Date.now();
     let bucket=counters.get(key);if(!bucket||now-bucket.t>60000)bucket={n:0,t:now};
     bucket.n++;if(counters.size>1000)counters.clear();counters.set(key,bucket);
@@ -81,7 +83,7 @@ export async function registerRoutes(httpServer:Server,app:Express):Promise<Serv
     const providers=rows.map((r,i)=>({provider:tasks[i][0],museum:museumNames[tasks[i][0]],status:r.status==="fulfilled"?"ok":"unavailable",matches:r.status==="fulfilled"?r.value.artworks.length:0}));
     const artworks=rows.flatMap(r=>r.status==="fulfilled"?r.value.artworks:[]).sort((a,b)=>matchScore(b,input)-matchScore(a,input));
     if(rows.every(r=>r.status==="rejected")){res.status(422).json({message:"Museum services are unavailable. Try again or use the saved example."});return;}
-    res.json({artworks,providers,checkedAt:new Date().toISOString(),coverage:"Four public museum catalogs; no live Perplexity API research"});
+    res.json({artworks,providers,checkedAt:new Date().toISOString(),coverage:"Four public museum catalogs; live Perplexity research runs separately after an artwork is confirmed"});
   });
   app.get("/api/example",async(_req,res)=>{
     const record=JSON.parse(await readFile("fixtures/monet.json","utf8"));
@@ -102,5 +104,6 @@ export async function registerRoutes(httpServer:Server,app:Express):Promise<Serv
       res.type("application/json").send(JSON.stringify({schemaVersion:1,coverage:"Single-source museum record, not independent provenance research",artwork:art},null,2));
     }catch{res.status(422).json({message:"Could not export this record. Please try again."});}
   });
+  registerResearchRoutes(app);
   return httpServer;
 }

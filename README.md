@@ -89,3 +89,15 @@ Use [the Computer vs. Cowork scorecard](docs/computer-vs-cowork-scorecard.md) to
 Do not commit private auction records, private photos, keys, `.env`, dependencies, or build outputs. No additional code license grant has been selected for publication; retain existing third-party notices and review the template's package metadata before any public release.
 
 This frontend requires its Node backend for search and downloads; GitHub Pages alone does not run it. Review dependencies and add production monitoring before public hosting.
+
+## Live research and model comparison (Perplexity Agent API)
+
+The dossier page includes a separate, labeled section, **Test the record against the open web**:
+
+- **Search the web (one model):** one model searches the live web through Perplexity's Agent API (`web_search` tool). It reports structured findings, each marked as confirming, adding to, or conflicting with the museum catalog, and labeled documented, reported, alleged, or uncertain. The page shows the searches the model ran and every page it retrieved.
+- **Compare three models:** Anthropic, OpenAI and Google models research independently in parallel. A fourth call then aligns their claims and shows each model's position (states as fact / reports as allegation / contradicts / not mentioned). Disagreements are flagged for human review. This is a Model Council-style comparison built on the Agent API; it is not the Model Council feature in the Perplexity app.
+- **Citation guard:** a cited URL is kept only if it appeared in that model's own search results. Any other cited link is removed.
+- **Lineups:** Frontier (Claude Opus 5.5, GPT-6.1 Sol, Gemini 3.1 Pro; Claude Sonnet 5.5 for one-model search and for the comparison step) or Efficient (Claude Haiku 5.5, GPT-6 Luna, Gemini 3.8 Flash).
+- **Measured costs on the Courbet case (October 2026):** frontier comparison $0.34, frontier one-model search $0.07, efficient comparison about $0.06. Each run shows its actual API cost from the API response.
+- **Safeguards:** a fixed server-side prompt (visitors cannot send free-form prompts); 6 runs per visitor per 10 minutes; a daily spend cap (`RESEARCH_DAILY_CAP_USD`, default $3); a one-hour result cache; and a 170-second timeout per model. Saved runs live in `fixtures/research/` (set `RESEARCH_SAVE_RUNS=1` to record new ones).
+- **Configuration:** set `PERPLEXITY_API_KEY`. In Perplexity Computer or on pplx.app, the credential proxy variables `CUSTOM_CRED_API_PERPLEXITY_AI_URL` and `CUSTOM_CRED_API_PERPLEXITY_AI_PROXY_AUTH_KEY` are used instead.

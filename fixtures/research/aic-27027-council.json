@@ -1,0 +1,891 @@
+{
+ "id": "ad6d9fef-7852-42d7-b7bf-69aec513f1e1",
+ "mode": "council",
+ "tier": "frontier",
+ "status": "done",
+ "startedAt": "2026-10-12T03:42:40.782Z",
+ "artwork": {
+  "provider": "aic",
+  "objectId": 27027,
+  "title": "The Rock of Hautepierre",
+  "artist": "Gustave Courbet"
+ },
+ "runs": [
+  {
+   "label": "Claude Opus 5.5",
+   "provider": "Anthropic",
+   "model": "anthropic/claude-opus-5-5",
+   "status": "done",
+   "sources": [
+    {
+     "url": "https://en.wikipedia.org/wiki/The_Art_Institute_of_Chicago",
+     "title": "Art Institute of Chicago - Wikipedia",
+     "date": "2007-01-04"
+    },
+    {
+     "url": "https://www.chicagotribune.com/2000/03/10/art-institute-takes-initiative-on-works-looted-in-nazi-era/",
+     "title": "ART INSTITUTE TAKES INITIATIVE ON WORKS LOOTED ...",
+     "date": "2000-03-10"
+    },
+    {
+     "url": "https://en.wikipedia.org/wiki/Max_Silberberg",
+     "title": "Max Silberberg",
+     "date": "2021-03-20"
+    },
+    {
+     "url": "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet",
+     "title": "Art Institute of Chicago boosts efforts to learn origins of its ...",
+     "date": "2024-12-02"
+    },
+    {
+     "url": "https://taz.de/Kunsthandel-in-der-NS-Zeit/!5122888/",
+     "title": "Kunsthandel in der NS-Zeit: Die gierigen Helfer der Räuber",
+     "date": "2011-04-11"
+    },
+    {
+     "url": "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+     "title": "ASSOCIATION OF ART MUSEUM DIRECTORS",
+     "date": "2006-07-27"
+    },
+    {
+     "url": "https://www.kunstverwaltung.bund.de/SharedDocs/Provenienzen/DE/13000_13999/13435.html",
+     "title": "Startseite - Italienische Landschaft mit kleinem See - KVDB"
+    },
+    {
+     "url": "https://www.openartdata.org/search/label/Art%20Institute%20of%20Chicago?m=0",
+     "title": "... Open Art Data ...: Art Institute of Chicago",
+     "date": "2026-05-30"
+    },
+    {
+     "url": "https://www.wikidata.org/wiki/Q20275910?uselang=ca",
+     "title": "The Rock of Hautepierre"
+    },
+    {
+     "url": "https://assets.publishing.service.gov.uk/media/5a807306e5274a2e8ab5035a/53629_HC_777_Print_Ready.pdf",
+     "title": "[PDF] Report of the Spoliation Advisory Panel in respect of a Gothic relief ..."
+    },
+    {
+     "url": "https://www.ksl.com/article/351019",
+     "title": "Plundered art plagues museums all across America | KSL.com",
+     "date": "2006-07-10"
+    },
+    {
+     "url": "https://www.lempertz.com/de/kataloge/kuenstlerverzeichnis/detail/courbet-gustave.html",
+     "title": "www.lempertz.com · detail · courbet-gustaveGustave Courbet - Verkaufen & Kaufen Werke, Preise, Biografie",
+     "date": "2019-06-04"
+    },
+    {
+     "url": "https://en.wikipedia.org/wiki/Fritz_Nathan",
+     "title": "Fritz Nathan - Wikipedia",
+     "date": "2021-02-16"
+    },
+    {
+     "url": "https://www.openartdata.org/search/label/digital%20provenance%20research?m=0",
+     "title": "digital provenance research",
+     "date": "2026-05-30"
+    },
+    {
+     "url": "https://www.lempertz.com/en/catalogues/artist-index/detail/courbet-gustave.html",
+     "title": "Gustave Courbet - Sell & Buy Works, prices, biography",
+     "date": "2019-06-04"
+    },
+    {
+     "url": "https://urbanmemoryfoundation.org/en/carl-sachs/",
+     "title": "CARL SACHS - Fundacja Urban Memory",
+     "date": "2024-05-07"
+    }
+   ],
+   "queries": [
+    "Courbet Rock of Hautepierre Art Institute Silberberg",
+    "Max Silberberg Courbet Art Institute Chicago restitution",
+    "Silberberg Graupe 1935 Courbet Hautepierre",
+    "Art Institute of Chicago Silberberg Courbet settlement 2001",
+    "Lempertz 1964 Courbet Hautepierre",
+    "Rothermundt Courbet collection Dresden"
+   ],
+   "summary": "The catalog chain matches published sources. The one conflict is a secondary source giving 1965 rather than 1967 for the museum's purchase. The catalog says nothing about the Silberberg claim: his heir alleged the March 1935 Graupe sale was forced. Silberberg's collection was dispersed under Nazi persecution in 1935–36. In 2001 the museum reached an undisclosed settlement and kept the painting. Still unknown: the 1935 buyer and owners from 1935 to 1964.",
+   "gaps": [
+    "The buyer at the Graupe sale of 23 March 1935 and the price paid (recorded in Die Weltkunst) were not found.",
+    "No owner is identified between 1935 and 1964; the catalog says only 'German private collection,' based on a 1998 letter from Lempertz.",
+    "No independent record of the Lempertz Cologne sale of November 1964 (lot 289) was located.",
+    "When and how Rothermundt acquired the painting, and how it passed from him to Silberberg before 1923, are undocumented.",
+    "The dealer Fritz Nathan is linked to disputes over Nazi-era sales; his role in 1964–65 has not been independently checked.",
+    "The terms of the 2001 settlement are confidential."
+   ],
+   "findings": [
+    {
+     "claim": "Silberberg sold 19 works at Galerie Georges Petit in Paris in 1932 and kept others, including works by Courbet. This fits the catalog's statement that he owned the painting from 1923 to 1935. The sources found do not say whether this Courbet was in the 1932 Petit sale; it was not offered there as far as these sources show.",
+     "date": "1932",
+     "relation": "adds_to_catalog",
+     "certainty": "reported",
+     "sourceUrls": [
+      "https://en.wikipedia.org/wiki/Max_Silberberg"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "On 22–23 March 1935 Paul Graupe in Berlin auctioned stock from the liquidated Galerie Otto Burchard together with Max Silberberg's collection. Courbet was among the artists offered, and much of the material came from 'non-Aryan' owners. In 1935 Silberberg was forced to sell his villa to the SS below market value. He was later murdered in the Holocaust.",
+     "date": "1935-03-23",
+     "relation": "confirms_catalog",
+     "certainty": "documented",
+     "sourceUrls": [
+      "https://taz.de/Kunsthandel-in-der-NS-Zeit/!5122888/",
+      "https://assets.publishing.service.gov.uk/media/5a807306e5274a2e8ab5035a/53629_HC_777_Print_Ready.pdf"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "A UK Spoliation Advisory Panel report says Silberberg's collection was sold in four Graupe auctions in 1935 and a final one on 7 January 1936. These sales followed financial pressure and a forced move to a small rented flat. This places the March 1935 sale within a series of sales made under persecution.",
+     "date": "1935-1936",
+     "relation": "adds_to_catalog",
+     "certainty": "documented",
+     "sourceUrls": [
+      "https://assets.publishing.service.gov.uk/media/5a807306e5274a2e8ab5035a/53629_HC_777_Print_Ready.pdf"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "The Silberberg Wikipedia article says the Art Institute acquired the painting from Paul Rosenberg in 1965. The catalog says Rosenberg bought it in 1965 and sold it to the museum in 1967. The 1965 date is probably an error in this secondary source.",
+     "date": "1965",
+     "relation": "conflicts_with_catalog",
+     "certainty": "reported",
+     "sourceUrls": [
+      "https://en.wikipedia.org/wiki/Max_Silberberg"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "According to museum statements, the Art Institute bought the painting in 1967. It had questioned the provenance for a long time and recorded Silberberg's ownership on its labels from the time of acquisition. In March 2000 it took the work off display and contacted Gerta Silberberg, Max Silberberg's daughter-in-law and heir. The museum noted a gap in the 1930s ownership record.",
+     "date": "2000-03",
+     "relation": "adds_to_catalog",
+     "certainty": "reported",
+     "sourceUrls": [
+      "https://www.chicagotribune.com/2000/03/10/art-institute-takes-initiative-on-works-looted-in-nazi-era/",
+      "https://financialservices.house.gov/media/pdf/072706jc.pdf"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "Gerta Silberberg claimed the painting was part of a forced sale of her father-in-law's collection. This is the heir's allegation as recorded by the Association of Art Museum Directors (AAMD). No court or panel ruled on it.",
+     "date": "2000-2001",
+     "relation": "adds_to_catalog",
+     "certainty": "alleged",
+     "sourceUrls": [
+      "https://financialservices.house.gov/media/pdf/072706jc.pdf"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "On 14 May 2001 the Art Institute and Gerta Silberberg reached an undisclosed settlement. The museum kept title and possession and added a label acknowledging Max Silberberg's ownership. Press reports say the museum paid an undisclosed sum.",
+     "date": "2001-05-14",
+     "relation": "adds_to_catalog",
+     "certainty": "documented",
+     "sourceUrls": [
+      "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+      "https://www.ksl.com/article/351019",
+      "https://en.wikipedia.org/wiki/Fritz_Nathan"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "In 2024 the Art Institute cited the Silberberg settlement as an example of its provenance work when it expanded its provenance team. An Open Art Data dataset from May 2026 compares the museum's Nazi-era provenance texts from 2017 and 2026 and includes this painting.",
+     "date": "2024-12-02",
+     "relation": "adds_to_catalog",
+     "certainty": "reported",
+     "sourceUrls": [
+      "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet",
+      "https://www.openartdata.org/search/label/Art%20Institute%20of%20Chicago?m=0"
+     ],
+     "unverifiedCitations": 0
+    }
+   ],
+   "cost": 0.12247,
+   "durationMs": 39690
+  },
+  {
+   "label": "GPT-6.1 Sol",
+   "provider": "OpenAI",
+   "model": "openai/gpt-6.1-sol",
+   "status": "done",
+   "sources": [
+    {
+     "url": "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet",
+     "title": "Art Institute of Chicago boosts efforts to learn origins of its ...",
+     "date": "2024-12-02"
+    },
+    {
+     "url": "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+     "title": "ASSOCIATION OF ART MUSEUM DIRECTORS"
+    },
+    {
+     "url": "https://www.artic.edu/artworks/27027/the-rock-of-hautepierre",
+     "title": "The Rock of Hautepierre | The Art Institute of Chicago",
+     "date": "2006-05-14"
+    },
+    {
+     "url": "https://en.wikipedia.org/wiki/The_Art_Institute_of_Chicago",
+     "title": "Art Institute of Chicago - Wikipedia",
+     "date": "2007-01-04"
+    },
+    {
+     "url": "https://www.ksl.com/article/351019/plundered-art-plagues-museums-all-across-america",
+     "title": "Plundered art plagues museums all across America",
+     "date": "2006-07-10"
+    },
+    {
+     "url": "https://en.wikipedia.org/wiki/Max_Silberberg",
+     "title": "Max Silberberg - Wikipedia",
+     "date": "2021-03-20"
+    },
+    {
+     "url": "https://www.openartdata.org/2026/05/Art-Institute-Chicago-NEPIP-Provenances.html",
+     "title": "DATASET: provenances of AIC NEPIP artworks for two dates at a ten year interval",
+     "date": "2026-05-30"
+    },
+    {
+     "url": "https://www.chicagotribune.com/2000/03/10/art-institute-takes-initiative-on-works-looted-in-nazi-era/",
+     "title": "ART INSTITUTE TAKES INITIATIVE ON WORKS LOOTED IN NAZI ERA",
+     "date": "2000-03-10"
+    },
+    {
+     "url": "https://www.wikidata.org/wiki/Q20275910?uselang=ca",
+     "title": "The Rock of Hautepierre"
+    },
+    {
+     "url": "https://www.theartnewspaper.com/2000/04/01/the-world-jewish-congress-has-made-accusations-about-the-provenance-of-works-in-us-permanent-collections",
+     "title": "The World Jewish Congress has made accusations about the ...",
+     "date": "2000-04-01"
+    },
+    {
+     "url": "https://urbanmemoryfoundation.org/en/gustave-courbet-young-woman-reading/",
+     "title": "Gustave Courbet, “Young Woman Reading” - Fundacja Urban Memory",
+     "date": "2024-05-06"
+    },
+    {
+     "url": "https://en.wikipedia.org/wiki/Fritz_Nathan",
+     "title": "Fritz Nathan - Wikipedia",
+     "date": "2021-02-16"
+    },
+    {
+     "url": "https://www.ksl.com/article/351019",
+     "title": "Plundered art plagues museums all across America | KSL.com",
+     "date": "2006-07-10"
+    },
+    {
+     "url": "https://www.lempertz.com/de/kataloge/kuenstlerverzeichnis/detail/courbet-gustave.html",
+     "title": "www.lempertz.com · detail · courbet-gustaveGustave Courbet - Verkaufen & Kaufen Werke, Preise, Biografie",
+     "date": "2019-06-04"
+    },
+    {
+     "url": "https://www.chicagotribune.com/2000/04/23/provenance-the-secret-life-of-art/",
+     "title": "PROVENANCE: THE `SECRET LIFE' OF ART",
+     "date": "2000-04-23"
+    },
+    {
+     "url": "https://digi.ub.uni-heidelberg.de/diglit/graupe1935_03_23",
+     "title": "Auktion / Paul Graupe, Antiquariat (Nr. 141): Gemälde und ...",
+     "date": "2011-03-10"
+    },
+    {
+     "url": "https://taz.de/Kunsthandel-in-der-NS-Zeit/!5122888/",
+     "title": "Kunsthandel in der NS-Zeit: Die gierigen Helfer der Räuber",
+     "date": "2011-04-11"
+    },
+    {
+     "url": "https://publications.artic.edu/node/134162",
+     "title": "About This Catalogue - Renoir"
+    },
+    {
+     "url": "https://kunstmuseum.gr.ch/de/Sammlung/Provenienzforschung/Seiten/Max-Liebermann.aspx",
+     "title": "Restitution eines Max Liebermann-Gemäldes",
+     "date": "2026-10-06"
+    },
+    {
+     "url": "https://www.proveana.de/de/corporate-body/paul-graupe-firma",
+     "title": "Paul Graupe (Firma)",
+     "date": "2026-06-10"
+    },
+    {
+     "url": "https://digi.ub.uni-heidelberg.de/diglit/graupe1935_10_12",
+     "title": "Auktion / Paul Graupe, Antiquariat: Handzeichnungen des 16. bis 20. Jahrhunderts, Gemälde, altes Kunstgewerbe: aus verschiedenem Privatbesitz ; am 12. Oktober 1935",
+     "date": "2010-11-30"
+    },
+    {
+     "url": "https://publications.artic.edu/node/139212",
+     "title": "Acknowledgments",
+     "date": "2014-07-22"
+    },
+    {
+     "url": "https://www.nga.gov/artworks/46589-young-woman-reading",
+     "title": "A Young Woman Reading by Gustave Courbet - National Gallery of Art",
+     "date": "2024-12-26"
+    },
+    {
+     "url": "https://digi.ub.uni-heidelberg.de/diglit/kk1931a/0013",
+     "title": "Kunst und Künstler: illustrierte Monatsschrift für bildende Kunst und ..."
+    },
+    {
+     "url": "https://urbanmemoryfoundation.org/en/collectors/",
+     "title": "The Jewish art collectors in Breslau - Fundacja Urban Memory",
+     "date": "2024-05-09"
+    },
+    {
+     "url": "https://www.daumier-register.org/referenzen.html",
+     "title": "referenzen"
+    },
+    {
+     "url": "https://www.neuruppin-erleben.de/silberberg",
+     "title": "Max Silberberg - Neuruppin erleben"
+    },
+    {
+     "url": "https://musee-courbet.fr/exposition/les-graveurs-de-courbet/",
+     "title": "Les graveurs de Courbet - Ornans",
+     "date": "2011-11-19"
+    },
+    {
+     "url": "https://opendata.doubs.fr/explore/dataset/oeuvres-de-gustave-courbet/api/",
+     "title": "Oeuvres de Gustave Courbet - DOubs DATA",
+     "date": "2026-04-09"
+    },
+    {
+     "url": "https://www.villagesfm.com/patrimoine-photographique/",
+     "title": "Patrimoine photographique - Villages FM",
+     "date": "2005-02-28"
+    },
+    {
+     "url": "http://www.newyorklawjournal.com/id=1202791649942",
+     "title": "ERROR"
+    }
+   ],
+   "queries": [
+    "Courbet Rock Hautepierre Art Institute Silberberg restitution",
+    "Art Institute 27027 Rock Hautepierre provenance",
+    "Courbet Hautepierre Silberberg settlement",
+    "Rock Hautepierre Silberberg May 14 2001 Art Institute settlement",
+    "Courbet Hautepierre Graupe 1935 20 Lempertz 1964 289",
+    "Rock Hautepierre Courbet 1923 Scheffler exhibition provenance",
+    "artic.edu/artworks/27027 Exhibition History Provenance Published References",
+    "Paul Graupe 1935 März 23 Courbet Hautepierre Silberberg Heidelberg",
+    "Art Institute Silberberg Courbet 2001 settlement label",
+    "graupe1935_03_23 Hautepierre 20",
+    "Courbet Hautepierre Scheffler 1923 1931 Silberberg",
+    "The Rock of Hautepierre exhibition history 1967 1978",
+    "graupe1935_03_23 Courbet Hautepierre Ornans Rothermundt",
+    "kk1931a Courbet Hautepierre Silberberg",
+    "Rock Hautepierre Silberberg settlement May 2001 payment"
+   ],
+   "summary": "The principal addition is a restitution claim resolved on May 14, 2001: the Art Institute retained title and possession under an undisclosed agreement with Gerta Silberberg. Institutional testimony documents the settlement and records her forced-sale allegation; a later news account reports compensation. The agreement does not fill the crucial 1935–1964 ownership gap or establish a court finding of coercion. The original 1935 auction catalogue is digitized, but buyer identification and several underlying sale records remain unverified.",
+   "gaps": [
+    "The chain from Courbet's studio to Adolf Rothermundt remains unspecified, as do Rothermundt's acquisition date and the precise transfer to Silberberg before 1923.",
+    "The purchaser at the March 23, 1935 Graupe auction remains unidentified. The unnamed German private collection does not establish continuous ownership between 1935 and 1964.",
+    "The original Graupe lot 20 description, annotations identifying its buyer, and the cited Die Weltkunst price report were not independently verified in the retrieved material.",
+    "The November 1964 Lempertz lot 289, consignor identity, hammer price, and Nathan purchase documentation were not independently retrieved.",
+    "The Nathan correspondence, 1965 Rosenberg invoice, and 1998 Lempertz letter remain curatorial-file evidence not independently examined here.",
+    "The settlement's full terms and payment amount remain undisclosed. No court judgment determining whether this specific sale was coerced was located.",
+    "Scheffler's 1931 collection study is digitized at Heidelberg, but the retrieved text did not establish this painting's specific entry or illustration. No additional ownership-relevant exhibition history was verified."
+   ],
+   "findings": [
+    {
+     "claim": "Heidelberg University Library preserves the original catalogue for Paul Graupe auction 141, held in Berlin on March 23, 1935. Its title describes nineteenth-century paintings and drawings from a 'well-known Silesian private collection' and other private owners. This independently confirms the auction's existence and date, but the retrieved record did not expose the individual lot 20 entry.",
+     "date": "1935-03-23",
+     "relation": "confirms_catalog",
+     "certainty": "documented",
+     "sourceUrls": [
+      "https://digi.ub.uni-heidelberg.de/diglit/graupe1935_03_23"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "Association of Art Museum Directors testimony preserved by the U.S. House of Representatives identifies Silberberg as the painting's owner and confirms its sale at Galerie Paul Graupe on March 23, 1935. It also states that the Art Institute acknowledged Silberberg's ownership on labels when it acquired the painting.",
+     "date": "1935-03-23; 1967",
+     "relation": "confirms_catalog",
+     "certainty": "documented",
+     "sourceUrls": [
+      "https://financialservices.house.gov/media/pdf/072706jc.pdf"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "The Chicago Tribune reported that the museum proactively contacted Gerta Silberberg after connecting its former owner's name with her restitution efforts. By March 2000, the parties were discussing ownership, and the museum had removed the painting from public display. This adds a restitution episode absent from the supplied provenance.",
+     "date": "2000-03-10",
+     "relation": "adds_to_catalog",
+     "certainty": "reported",
+     "sourceUrls": [
+      "https://www.chicagotribune.com/2000/03/10/art-institute-takes-initiative-on-works-looted-in-nazi-era/"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "Gerta Silberberg, Max Silberberg's daughter-in-law and surviving heir, alleged that the painting's 1935 auction formed part of a forced sale of his collection. The AAMD account explicitly presents forced-sale status as her allegation; the settlement alone does not establish a judicial determination of coercion.",
+     "date": "2000–2001; recorded in settlement account dated 2001-05-14",
+     "relation": "adds_to_catalog",
+     "certainty": "alleged",
+     "sourceUrls": [
+      "https://financialservices.house.gov/media/pdf/072706jc.pdf"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "The AAMD account dates the resolution to May 14, 2001: Gerta Silberberg and the Art Institute reached an undisclosed settlement after extensive research. Title and possession remained with the museum, and a new label would acknowledge Max Silberberg's prior ownership. The supplied catalog omits this consequential agreement.",
+     "date": "2001-05-14",
+     "relation": "adds_to_catalog",
+     "certainty": "documented",
+     "sourceUrls": [
+      "https://financialservices.house.gov/media/pdf/072706jc.pdf"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "A 2006 news account reports that retaining the Courbet involved payment of an undisclosed sum to Silberberg's family. This adds a reported financial component to the settlement; the institutional account confirms an undisclosed agreement but does not specify payment or its amount.",
+     "date": "2006-07-10, reporting the 2001 settlement",
+     "relation": "adds_to_catalog",
+     "certainty": "reported",
+     "sourceUrls": [
+      "https://www.ksl.com/article/351019",
+      "https://financialservices.house.gov/media/pdf/072706jc.pdf"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "In a 2024 account of its expanded provenance program, the Art Institute again cited this painting as an example of museum-initiated engagement with an heir. The report says the museum learned of Silberberg's heir in 2000 and reached an agreement allowing the work to remain in its collection.",
+     "date": "2024-12-02",
+     "relation": "adds_to_catalog",
+     "certainty": "reported",
+     "sourceUrls": [
+      "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet"
+     ],
+     "unverifiedCitations": 0
+    }
+   ],
+   "cost": 0.06729,
+   "durationMs": 43545
+  },
+  {
+   "label": "Gemini 3.1 Pro",
+   "provider": "Google",
+   "model": "google/gemini-3.1-pro-preview",
+   "status": "done",
+   "sources": [
+    {
+     "url": "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet",
+     "title": "Art Institute of Chicago boosts efforts to learn origins of its ...",
+     "date": "2024-12-02"
+    },
+    {
+     "url": "https://www.artic.edu/artworks/27027/the-rock-of-hautepierre",
+     "title": "The Rock of Hautepierre | The Art Institute of Chicago",
+     "date": "2006-05-14"
+    },
+    {
+     "url": "http://www.davidrumsey.com/amica/amico249479-5722.html",
+     "title": "Gustave Courbet / The Rock of Hautepierre / c. 1869"
+    },
+    {
+     "url": "https://www.wikidata.org/wiki/Wikidata:WikiProject_sum_of_all_paintings/Creator/Gustave_Courbet",
+     "title": "Wikidata:WikiProject sum of all paintings/Creator/Gustave ...",
+     "date": "2026-10-04"
+    },
+    {
+     "url": "https://www.wikidata.org/wiki/Q20275910?uselang=ca",
+     "title": "The Rock of Hautepierre"
+    },
+    {
+     "url": "https://en.wikipedia.org/wiki/Art_Institute_of_Chicago",
+     "title": "Art Institute of Chicago",
+     "date": "2007-01-04"
+    },
+    {
+     "url": "https://kunstall.org/artist/Q34618",
+     "title": "Gustave Courbet (1819–1877) - KunstAll"
+    },
+    {
+     "url": "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+     "title": "ASSOCIATION OF ART MUSEUM DIRECTORS"
+    },
+    {
+     "url": "https://www.fonron.com/ldszp/21973.html",
+     "title": "法国画家库尔贝Gustave Courbet 名作（代表作）《弗雷德里克"
+    },
+    {
+     "url": "https://www.artrenewal.org/artworks/the-woodcutters/gustave-courbet/83627",
+     "title": "The Woodcutters by Gustave Courbet"
+    },
+    {
+     "url": "https://www.museumarchive.shop/products/the-rock-of-hautepierre-gustave-courbet",
+     "title": "The Rock of Hautepierre by Gustave Courbet Art Print & Poster"
+    },
+    {
+     "url": "https://en.wikipedia.org/wiki/Max_Silberberg",
+     "title": "Max Silberberg - Wikipedia",
+     "date": "2021-03-20"
+    },
+    {
+     "url": "https://www.lempertz.com/de/kataloge/detail/1264-1-schmuck-und-uhren.html",
+     "title": "Schmuck und Uhren - Auktionskatalog 1264",
+     "date": "2019-06-04"
+    },
+    {
+     "url": "https://www.abebooks.com/collections/sc/lempertz/3nAs8KhlSzXZFWO9yCsvuL",
+     "title": "Shop Lempertz Books and Collectibles | AbeBooks: Licus Media e.K."
+    },
+    {
+     "url": "https://www.lempertz.com/en/selling-collections.html",
+     "title": "Selling Collections",
+     "date": "2019-06-06"
+    },
+    {
+     "url": "https://www.lempertz.com/en/publications.html",
+     "title": "Publications",
+     "date": "2019-06-06"
+    },
+    {
+     "url": "https://digi.ub.uni-heidelberg.de/diglit/graupe1935_10_12",
+     "title": "Auktion / Paul Graupe, Antiquariat: Handzeichnungen des 16. bis 20. Jahrhunderts, Gemälde, altes Kunstgewerbe: aus verschiedenem Privatbesitz ; am 12. Oktober 1935",
+     "date": "2010-11-30"
+    },
+    {
+     "url": "https://www.lempertz.com/de/kataloge/detail/979-1-moderne-kunst.html",
+     "title": "Moderne Kunst - Auktionskatalog 979",
+     "date": "2019-06-04"
+    },
+    {
+     "url": "https://digi.ub.uni-heidelberg.de/diglit/graupe1935_01_26",
+     "title": "Auktion / Paul Graupe, Antiquariat (Nr. 138): Kunstgegenstände aus ...",
+     "date": "2011-02-22"
+    },
+    {
+     "url": "https://digi.ub.uni-heidelberg.de/diglit/graupe1935_03_23",
+     "title": "Auktion / Paul Graupe, Antiquariat (Nr. 141): Gemälde und ...",
+     "date": "2011-03-10"
+    },
+    {
+     "url": "https://news.yale.edu/2001/01/23/yale-researching-provenance-courbet-painting",
+     "title": "Yale Researching Provenance of Courbet Painting - YaleNews",
+     "date": "2001-01-23"
+    },
+    {
+     "url": "http://archives.news.yale.edu/v30.n9/story7.html",
+     "title": "Yale Art Gallery receives gift of major work by Courbet"
+    },
+    {
+     "url": "https://digi.ub.uni-heidelberg.de/diglit/graupe1935_05_27",
+     "title": "Auktion / Paul Graupe, Antiquariat (Nr. 145): Verschiedener ...",
+     "date": "2011-02-02"
+    },
+    {
+     "url": "https://www.lempertz.com/en/",
+     "title": "www.lempertz.com › enAuction House - Auctions in Cologne, Berlin & Brussels - Lempertz",
+     "date": "2018-12-04"
+    },
+    {
+     "url": "https://www.lempertz.com/en/old-masters.html",
+     "title": "Fine Arts - Buy & Sell - Auktionshaus Lempertz",
+     "date": "2019-06-04"
+    },
+    {
+     "url": "https://www.sothebys.com/en/auctions/ecatalogue/2014/impressionist-modern-art-evening-sale-l14002/lot.43.html",
+     "title": "Camille Pissarro"
+    },
+    {
+     "url": "https://www.sothebys.com/en/auctions/ecatalogue/2015/masterworks-collection-a-alfred-taubman-n09430/lot.2.html",
+     "title": "(#2) Vincent van Gogh - Sotheby's",
+     "date": "1997-11-13"
+    },
+    {
+     "url": "https://x.com/Lempertzauction",
+     "title": "Lempertz Auctioneers (@Lempertzauction) / X"
+    }
+   ],
+   "queries": [
+    "\"The Rock of Hautepierre\" Courbet Art Institute of Chicago",
+    "\"The Rock of Hautepierre\" Courbet Max Silberberg",
+    "Courbet \"The Rock of Hautepierre\" Graupe 1935",
+    "\"The Rock of Hautepierre\" \"Lempertz\" 1964",
+    "\"The Rock of Hautepierre\" \"Graupe\" 1935 buyer",
+    "\"The Rock of Hautepierre\" Courbet \"private collection\" 1935 1964",
+    "Courbet Hautepierre Graupe 1935 buyer",
+    "\"The Rock of Hautepierre\" Courbet \"Lempertz\" 1964 buyer"
+   ],
+   "summary": "The catalog accurately traces the painting from Max Silberberg to the museum, but omits critical historical context: Silberberg was a Holocaust victim, and the 1935 Graupe auction was a forced sale resulting from Nazi persecution. In 2000, Gerta Silberberg, his last surviving heir, brought a restitution claim against the Art Institute of Chicago. The parties reached a confidential settlement on May 14, 2001, allowing the museum to retain legal title. The intermediate ownership between the 1935 forced sale and 1964 remains unidentified.",
+   "gaps": [
+    "The identity of the buyer who purchased the painting at the March 23, 1935 Galerie Paul Graupe forced sale.",
+    "The specific identity and location of the 'German private collection' that held the painting from 1935 until its consignment to Lempertz in 1964."
+   ],
+   "findings": [
+    {
+     "claim": "Max Silberberg, who owned the painting until 1935, was a Jewish collector from Breslau who was later murdered at Auschwitz.",
+     "date": "by 1923 to 1935",
+     "relation": "adds_to_catalog",
+     "certainty": "documented",
+     "sourceUrls": [
+      "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet",
+      "https://en.wikipedia.org/wiki/Max_Silberberg"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "The March 23, 1935 auction at Galerie Paul Graupe was a forced sale orchestrated under Nazi persecution, as alleged by Silberberg's heir and widely reported by historians.",
+     "date": "March 23, 1935",
+     "relation": "adds_to_catalog",
+     "certainty": "reported",
+     "sourceUrls": [
+      "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+      "https://en.wikipedia.org/wiki/Max_Silberberg"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "The Art Institute of Chicago was contacted by Gerta Silberberg, Max Silberberg's daughter-in-law and last surviving heir, who pursued a restitution claim for the artwork.",
+     "date": "2000",
+     "relation": "adds_to_catalog",
+     "certainty": "documented",
+     "sourceUrls": [
+      "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet",
+      "https://financialservices.house.gov/media/pdf/072706jc.pdf"
+     ],
+     "unverifiedCitations": 0
+    },
+    {
+     "claim": "The museum reached a mutually agreeable, undisclosed settlement with Gerta Silberberg, allowing the Art Institute to retain legal title and possession of the painting.",
+     "date": "May 14, 2001",
+     "relation": "adds_to_catalog",
+     "certainty": "documented",
+     "sourceUrls": [
+      "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+      "https://en.wikipedia.org/wiki/Art_Institute_of_Chicago"
+     ],
+     "unverifiedCitations": 0
+    }
+   ],
+   "cost": 0.09591,
+   "durationMs": 49692
+  }
+ ],
+ "totalCost": 0.33737,
+ "saved": true,
+ "synthesis": {
+  "status": "done",
+  "label": "Claude Sonnet 5.5",
+  "model": "anthropic/claude-sonnet-5-5",
+  "provider": "Anthropic",
+  "summary": "All three models find the catalog's chain consistent with published sources, but it omits the Silberberg restitution episode: heir Gerta Silberberg's forced-sale claim and the May 14, 2001 settlement under which the museum kept the painting. They differ on certainty: Gemini states the 1935 sale as forced, while Claude and GPT present it as the heir's allegation. Only Claude flags the 1965 vs 1967 date discrepancy in a secondary source. The 1935 buyer and owners until 1964 remain unidentified.",
+  "claims": [
+   {
+    "claim": "Silberberg sold 19 works at Galerie Georges Petit in Paris in 1932 and kept others, including Courbets; this fits the 1923–1935 ownership, though the sources do not say whether this painting was in that sale.",
+    "date": "1932",
+    "relation": "adds_to_catalog",
+    "agreement": "single_model",
+    "needsReview": true,
+    "note": "Only Claude mentions the 1932 Petit sale, and it does not establish whether this painting was in it.",
+    "positions": [
+     {
+      "model": "Claude Opus 5.5",
+      "stance": "supports"
+     },
+     {
+      "model": "GPT-6.1 Sol",
+      "stance": "not_mentioned"
+     },
+     {
+      "model": "Gemini 3.1 Pro",
+      "stance": "not_mentioned"
+     }
+    ],
+    "sourceUrls": [
+     "https://en.wikipedia.org/wiki/Max_Silberberg"
+    ]
+   },
+   {
+    "claim": "Max Silberberg, Jewish collector from Breslau, owned the painting until the Paul Graupe auction in Berlin on March 22–23, 1935, which is documented (catalogue digitized; AAMD testimony confirms the sale); he was later murdered in the Holocaust.",
+    "date": "1935-03-23",
+    "relation": "confirms_catalog",
+    "agreement": "partial",
+    "needsReview": true,
+    "note": "Models agree on the sale and date but differ in detail: Gemini adds that he was murdered at Auschwitz, Claude adds the liquidated Burchard stock, and GPT notes lot 20 was not seen in the catalogue record.",
+    "positions": [
+     {
+      "model": "Claude Opus 5.5",
+      "stance": "supports"
+     },
+     {
+      "model": "GPT-6.1 Sol",
+      "stance": "supports"
+     },
+     {
+      "model": "Gemini 3.1 Pro",
+      "stance": "supports"
+     }
+    ],
+    "sourceUrls": [
+     "https://digi.ub.uni-heidelberg.de/diglit/graupe1935_03_23",
+     "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+     "https://taz.de/Kunsthandel-in-der-NS-Zeit/!5122888/",
+     "https://assets.publishing.service.gov.uk/media/5a807306e5274a2e8ab5035a/53629_HC_777_Print_Ready.pdf",
+     "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet",
+     "https://en.wikipedia.org/wiki/Max_Silberberg"
+    ]
+   },
+   {
+    "claim": "A UK Spoliation Advisory Panel report says Silberberg's collection was sold in four Graupe auctions in 1935 and a final one on 7 January 1936 after financial pressure and a forced move, placing the March 1935 sale in a series of sales under persecution.",
+    "date": "1935-1936",
+    "relation": "adds_to_catalog",
+    "agreement": "single_model",
+    "needsReview": true,
+    "note": "Only Claude cites the UK panel report for the series of sales.",
+    "positions": [
+     {
+      "model": "Claude Opus 5.5",
+      "stance": "supports"
+     },
+     {
+      "model": "GPT-6.1 Sol",
+      "stance": "not_mentioned"
+     },
+     {
+      "model": "Gemini 3.1 Pro",
+      "stance": "not_mentioned"
+     }
+    ],
+    "sourceUrls": [
+     "https://assets.publishing.service.gov.uk/media/5a807306e5274a2e8ab5035a/53629_HC_777_Print_Ready.pdf"
+    ]
+   },
+   {
+    "claim": "The 1935 Graupe sale was a forced sale under Nazi persecution, as alleged by Silberberg's heir Gerta Silberberg; no court or panel ruled on it.",
+    "date": "2000-2001",
+    "relation": "adds_to_catalog",
+    "agreement": "disagree",
+    "needsReview": true,
+    "note": "Claude and GPT treat this as the heir's allegation, while Gemini states it as a forced sale 'widely reported by historians', which leans toward fact.",
+    "positions": [
+     {
+      "model": "Claude Opus 5.5",
+      "stance": "reports_as_allegation"
+     },
+     {
+      "model": "GPT-6.1 Sol",
+      "stance": "reports_as_allegation"
+     },
+     {
+      "model": "Gemini 3.1 Pro",
+      "stance": "supports"
+     }
+    ],
+    "sourceUrls": [
+     "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+     "https://en.wikipedia.org/wiki/Max_Silberberg"
+    ]
+   },
+   {
+    "claim": "The Art Institute, which bought the painting in 1967, recorded Silberberg's ownership on labels. In 2000 it contacted heir Gerta Silberberg, took the work off display, and discussed ownership.",
+    "date": "2000-03",
+    "relation": "adds_to_catalog",
+    "agreement": "agree",
+    "needsReview": false,
+    "note": "Gemini notes only the 2000 contact; Claude and GPT detail the proactive outreach and removal from display.",
+    "positions": [
+     {
+      "model": "Claude Opus 5.5",
+      "stance": "supports"
+     },
+     {
+      "model": "GPT-6.1 Sol",
+      "stance": "supports"
+     },
+     {
+      "model": "Gemini 3.1 Pro",
+      "stance": "supports"
+     }
+    ],
+    "sourceUrls": [
+     "https://www.chicagotribune.com/2000/03/10/art-institute-takes-initiative-on-works-looted-in-nazi-era/",
+     "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+     "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet"
+    ]
+   },
+   {
+    "claim": "On May 14, 2001 the Art Institute and Gerta Silberberg reached an undisclosed settlement; the museum kept title and possession and added a label acknowledging Silberberg's ownership.",
+    "date": "2001-05-14",
+    "relation": "adds_to_catalog",
+    "agreement": "agree",
+    "needsReview": false,
+    "note": "All three models report the settlement consistently.",
+    "positions": [
+     {
+      "model": "Claude Opus 5.5",
+      "stance": "supports"
+     },
+     {
+      "model": "GPT-6.1 Sol",
+      "stance": "supports"
+     },
+     {
+      "model": "Gemini 3.1 Pro",
+      "stance": "supports"
+     }
+    ],
+    "sourceUrls": [
+     "https://financialservices.house.gov/media/pdf/072706jc.pdf",
+     "https://en.wikipedia.org/wiki/Art_Institute_of_Chicago",
+     "https://en.wikipedia.org/wiki/Fritz_Nathan"
+    ]
+   },
+   {
+    "claim": "Press reports say the museum paid an undisclosed sum to Silberberg's family to retain the painting; the institutional account does not specify payment.",
+    "date": "2006-07-10",
+    "relation": "adds_to_catalog",
+    "agreement": "partial",
+    "needsReview": true,
+    "note": "Claude and GPT report this from press accounts while Gemini does not mention it, and the institutional account does not confirm payment.",
+    "positions": [
+     {
+      "model": "Claude Opus 5.5",
+      "stance": "reports_as_allegation"
+     },
+     {
+      "model": "GPT-6.1 Sol",
+      "stance": "reports_as_allegation"
+     },
+     {
+      "model": "Gemini 3.1 Pro",
+      "stance": "not_mentioned"
+     }
+    ],
+    "sourceUrls": [
+     "https://www.ksl.com/article/351019",
+     "https://financialservices.house.gov/media/pdf/072706jc.pdf"
+    ]
+   },
+   {
+    "claim": "In 2024 the Art Institute cited the Silberberg settlement as an example of its provenance work when expanding its provenance team; Claude also notes a May 2026 Open Art Data comparison of provenance texts, and a secondary source gives 1965 rather than 1967 for the museum's purchase.",
+    "date": "2024-12-02",
+    "relation": "conflicts_with_catalog",
+    "agreement": "partial",
+    "needsReview": true,
+    "note": "Claude and GPT cite the 2024 report; only Claude adds the Open Art Data dataset and a Wikipedia 1965 date that conflicts with the catalog's 1967.",
+    "positions": [
+     {
+      "model": "Claude Opus 5.5",
+      "stance": "supports"
+     },
+     {
+      "model": "GPT-6.1 Sol",
+      "stance": "supports"
+     },
+     {
+      "model": "Gemini 3.1 Pro",
+      "stance": "not_mentioned"
+     }
+    ],
+    "sourceUrls": [
+     "https://chicago.suntimes.com/art/2024/12/02/art-institute-chicago-provenance-team-jacques-schuhmacher-nazi-matisse-daisies-egon-schiele-gustave-courbet",
+     "https://www.openartdata.org/search/label/Art%20Institute%20of%20Chicago?m=0",
+     "https://en.wikipedia.org/wiki/Max_Silberberg"
+    ]
+   }
+  ],
+  "cost": 0.0517,
+  "durationMs": 17080
+ },
+ "finishedAt": "2026-10-12T03:43:47.571Z"
+}
